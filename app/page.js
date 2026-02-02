@@ -18,13 +18,13 @@ export default function Home() {
     if (typeof window !== "undefined" && window.Telegram?.WebApp) {
       const telegram = window.Telegram.WebApp;
       telegram.ready();
-      telegram.expand();
+      // telegram.expand();
       telegram.enableClosingConfirmation();
-      
+
       // Set dark theme
       telegram.setHeaderColor("#09090b");
       telegram.setBackgroundColor("#09090b");
-      
+
       setTg(telegram);
     }
   }, []);
@@ -58,8 +58,8 @@ export default function Home() {
       </div>
 
       {/* Chat Modal */}
-      <ChatModal 
-        isOpen={isChatOpen} 
+      <ChatModal
+        isOpen={isChatOpen}
         onClose={() => setIsChatOpen(false)}
         tg={tg}
       />
