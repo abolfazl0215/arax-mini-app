@@ -19,8 +19,8 @@ const Message = memo(({ message }) => (
     <div
       className={`max-w-[75%] rounded-2xl px-4 py-3 ${
         message.sender === "user"
-          ? "bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white shadow-lg shadow-indigo-500/20"
-          : "backdrop-blur-xl bg-white/5 border border-white/10 text-slate-200"
+          ? "bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white"
+          : "bg-slate-800/80 border border-slate-700/50 text-slate-200"
       }`}>
       <p className="text-sm leading-relaxed">{message.text}</p>
       <span
@@ -106,25 +106,25 @@ export default function ChatModal() {
 
   return (
     <>
-      {/* Backdrop - Pure CSS */}
+      {/* Backdrop - No blur */}
       <div
-        className="chat-backdrop fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50"
+        className="fixed inset-0 bg-slate-950/90 z-50 animate-fadeIn"
         onClick={onClose}
       />
 
-      {/* Chat Modal - Pure CSS Animation */}
-      <div className="chat-modal fixed inset-x-4 top-4 bottom-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg md:h-[600px] backdrop-blur-xl bg-slate-900/95 border border-white/10 rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden">
-        {/* CSS-only Background Orbs */}
+      {/* Chat Modal - Reduced backdrop-blur */}
+      <div className="animate-scaleIn fixed inset-x-4 top-4 bottom-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg md:h-[600px] bg-slate-900/95 border border-slate-700/50 rounded-2xl z-50 flex flex-col overflow-hidden">
+        {/* Simple Background Orb */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="orb-chat orb-chat-1 absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-full blur-3xl" />
-          <div className="orb-chat orb-chat-2 absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-pink-500/10 to-cyan-500/10 rounded-full blur-3xl" />
+          <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/8 rounded-full blur-xl animate-pulse" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/8 rounded-full blur-xl animate-pulse" />
         </div>
 
         {/* Header */}
-        <div className="relative z-10 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-4 flex items-center justify-between shadow-lg">
+        <div className="relative z-10 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="relative">
-              <div className="w-10 h-10 backdrop-blur-xl bg-white/10 rounded-full flex items-center justify-center border border-white/20">
+              <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center border border-white/20">
                 <Sparkles className="w-5 h-5 text-white" />
               </div>
               <div className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-purple-600" />
@@ -142,13 +142,13 @@ export default function ChatModal() {
 
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-full backdrop-blur-xl bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center transition-colors">
+            className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center transition-colors">
             <X className="w-4 h-4 text-white" />
           </button>
         </div>
 
         {/* Messages */}
-        <div className="relative z-10 flex-1 overflow-y-auto p-4 space-y-4 chat-scrollbar">
+        <div className="relative z-10 flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin">
           {messages.map((message) => (
             <Message key={message.id} message={message} />
           ))}
@@ -156,13 +156,13 @@ export default function ChatModal() {
         </div>
 
         {/* Input Area */}
-        <div className="relative z-10 p-4 border-t border-white/10 backdrop-blur-xl bg-slate-900/50">
+        <div className="relative z-10 p-4 border-t border-slate-700/50 bg-slate-900/80">
           <div className="flex items-end gap-2">
-            <button className="w-10 h-10 rounded-full backdrop-blur-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center transition-colors flex-shrink-0">
+            <button className="w-10 h-10 rounded-full bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/50 flex items-center justify-center transition-colors flex-shrink-0">
               <Paperclip className="w-5 h-5 text-slate-400" />
             </button>
 
-            <div className="flex-1 backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl px-4 py-2 focus-within:border-white/20 transition-colors">
+            <div className="flex-1 bg-slate-800/80 border border-slate-700/50 rounded-2xl px-4 py-2 focus-within:border-slate-600 transition-colors">
               <textarea
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
@@ -176,7 +176,7 @@ export default function ChatModal() {
             <button
               onClick={handleSend}
               disabled={!inputValue.trim()}
-              className="relative w-10 h-10 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:shadow-lg hover:shadow-indigo-500/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center transition-all flex-shrink-0 hover:scale-105 active:scale-95">
+              className="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center transition-all flex-shrink-0 hover:scale-105 active:scale-95">
               <Send className="w-5 h-5 text-white" />
             </button>
           </div>
@@ -189,11 +189,7 @@ export default function ChatModal() {
       </div>
 
       <style jsx>{`
-        /* Backdrop Fade In - Pure CSS */
-        .chat-backdrop {
-          animation: fadeIn 0.15s ease-out;
-        }
-
+        /* Fade In */
         @keyframes fadeIn {
           from {
             opacity: 0;
@@ -202,12 +198,11 @@ export default function ChatModal() {
             opacity: 1;
           }
         }
-
-        /* Modal Scale In - Pure CSS */
-        .chat-modal {
-          animation: scaleIn 0.15s ease-out;
+        .animate-fadeIn {
+          animation: fadeIn 0.2s ease-out;
         }
 
+        /* Scale In */
         @keyframes scaleIn {
           from {
             opacity: 0;
@@ -218,13 +213,15 @@ export default function ChatModal() {
             transform: translate(-50%, -50%) scale(1);
           }
         }
+        .animate-scaleIn {
+          animation: scaleIn 0.2s ease-out;
+        }
 
-        /* Mobile positioning for modal */
+        /* Mobile */
         @media (max-width: 768px) {
-          .chat-modal {
+          .animate-scaleIn {
             animation: slideUp 0.2s ease-out;
           }
-
           @keyframes slideUp {
             from {
               opacity: 0;
@@ -237,63 +234,16 @@ export default function ChatModal() {
           }
         }
 
-        /* Orb Animations */
-        .orb-chat-1 {
-          animation: float-chat-1 8s ease-in-out infinite;
-        }
-        .orb-chat-2 {
-          animation: float-chat-2 10s ease-in-out infinite;
-        }
-
-        @keyframes float-chat-1 {
-          0%,
-          100% {
-            transform: translate(0, 0) scale(1);
-            opacity: 0.3;
-          }
-          50% {
-            transform: translate(20px, 20px) scale(1.1);
-            opacity: 0.5;
-          }
-        }
-
-        @keyframes float-chat-2 {
-          0%,
-          100% {
-            transform: translate(0, 0) scale(1);
-            opacity: 0.3;
-          }
-          50% {
-            transform: translate(-20px, -20px) scale(1.1);
-            opacity: 0.5;
-          }
-        }
-
-        /* Scrollbar Styles */
-        .chat-scrollbar::-webkit-scrollbar {
+        /* Scrollbar */
+        .scrollbar-thin::-webkit-scrollbar {
           width: 6px;
         }
-
-        .chat-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
-        }
-
-        .chat-scrollbar::-webkit-scrollbar-thumb {
+        .scrollbar-thin::-webkit-scrollbar-thumb {
           background: rgba(255, 255, 255, 0.1);
           border-radius: 3px;
         }
-
-        .chat-scrollbar::-webkit-scrollbar-thumb:hover {
+        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
           background: rgba(255, 255, 255, 0.15);
-        }
-
-        /* Performance Optimization */
-        .orb-chat {
-          will-change: transform, opacity;
-        }
-
-        .chat-modal {
-          will-change: transform, opacity;
         }
       `}</style>
     </>

@@ -101,40 +101,35 @@ const plans = [
   },
 ];
 
-// Ultra-Optimized Contact Modal - Pure CSS Animation
+// Optimized Modal - Removed backdrop-blur
 const ContactModal = memo(
   ({ isOpen, onClose, plan, onChatClick }) => {
     if (!isOpen) return null;
 
     return (
       <>
-        {/* Backdrop - Pure CSS */}
+        {/* Backdrop - No blur */}
         <div
-          className="modal-backdrop fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-40"
+          className="fixed inset-0 bg-slate-950/90 z-40 animate-fadeIn"
           onClick={onClose}
         />
 
-        {/* Modal Container - Pure CSS Animation */}
+        {/* Modal - No backdrop-blur */}
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
-          <div className="contact-modal pointer-events-auto w-full max-w-lg mx-auto max-h-[90vh] flex flex-col bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
-            {/* CSS-only Background Orb */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <div className="modal-orb absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-full blur-3xl" />
-            </div>
-
+          <div className="animate-scaleIn pointer-events-auto w-full max-w-lg mx-auto max-h-[90vh] flex flex-col bg-slate-900/95 border border-slate-700/50 rounded-2xl overflow-hidden">
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full backdrop-blur-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center transition-colors">
+              className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-slate-800/80 hover:bg-slate-700/80 border border-slate-600/50 flex items-center justify-center transition-colors">
               <X className="w-4 h-4 text-white" />
             </button>
 
             {/* Header */}
-            <div className="shrink-0 px-6 sm:px-8 pt-8 pb-5 border-b border-white/5">
+            <div className="shrink-0 px-6 sm:px-8 pt-8 pb-5 border-b border-slate-800">
               <div className="text-center">
                 <div className="relative inline-flex mx-auto mb-6">
                   <div
-                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${plan?.gradient || "from-indigo-600 to-purple-600"} p-3.5 shadow-2xl mx-auto`}>
+                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${plan?.gradient || "from-indigo-600 to-purple-600"} p-3.5 mx-auto`}>
                     {plan?.icon && (
                       <plan.icon className="w-full h-full text-white" />
                     )}
@@ -151,15 +146,15 @@ const ContactModal = memo(
               </div>
             </div>
 
-            {/* Scrollable Content */}
-            <div className="flex-1 overflow-y-auto px-6 sm:px-8 py-6 sm:py-8 modal-scrollbar">
-              {/* Primary CTA - Chat */}
+            {/* Content */}
+            <div className="flex-1 overflow-y-auto px-6 sm:px-8 py-6 sm:py-8 scrollbar-thin">
+              {/* Primary CTA */}
               <button
                 onClick={() => {
                   onChatClick?.();
                   onClose();
                 }}
-                className="group relative w-full mb-6 py-4 px-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-xl font-bold text-white text-base sm:text-lg shadow-2xl shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-all flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98]">
+                className="w-full mb-6 py-4 px-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-xl font-bold text-white text-base sm:text-lg transition-transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3">
                 <MessageCircle className="w-5 h-5" />
                 <span>ارسال پیام</span>
                 <Sparkles className="w-4 h-4" />
@@ -167,11 +162,11 @@ const ContactModal = memo(
 
               {/* Divider */}
               <div className="flex items-center gap-4 mb-6">
-                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                <div className="flex-1 h-px bg-slate-700" />
                 <span className="text-xs sm:text-sm text-slate-500">
                   یا
                 </span>
-                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                <div className="flex-1 h-px bg-slate-700" />
               </div>
 
               {/* Contact Options */}
@@ -209,7 +204,7 @@ const ContactModal = memo(
                         ? "noopener noreferrer"
                         : undefined
                     }
-                    className="group flex items-center gap-4 p-4 backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors">
+                    className="flex items-center gap-4 p-4 bg-slate-800/50 border border-slate-700/50 rounded-xl hover:bg-slate-800/80 transition-colors">
                     <div
                       className={`w-10 h-10 rounded-lg bg-gradient-to-br ${item.gradient} flex items-center justify-center flex-shrink-0`}>
                       <item.icon className="w-5 h-5 text-white" />
@@ -219,7 +214,7 @@ const ContactModal = memo(
                         {item.label}
                       </p>
                       <p
-                        className="text-sm font-semibold text-white tracking-wide"
+                        className="text-sm font-semibold text-white"
                         dir="ltr">
                         {item.value}
                       </p>
@@ -228,8 +223,8 @@ const ContactModal = memo(
                 ))}
               </div>
 
-              {/* Footer Note */}
-              <div className="mt-8 p-5 backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl">
+              {/* Footer */}
+              <div className="mt-8 p-5 bg-slate-800/50 border border-slate-700/50 rounded-xl">
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
                   <div>
@@ -247,11 +242,6 @@ const ContactModal = memo(
         </div>
 
         <style jsx>{`
-          /* Modal Backdrop Animation */
-          .modal-backdrop {
-            animation: fadeIn 0.15s ease-out;
-          }
-
           @keyframes fadeIn {
             from {
               opacity: 0;
@@ -260,12 +250,6 @@ const ContactModal = memo(
               opacity: 1;
             }
           }
-
-          /* Modal Scale Animation */
-          .contact-modal {
-            animation: scaleIn 0.15s ease-out;
-          }
-
           @keyframes scaleIn {
             from {
               opacity: 0;
@@ -276,38 +260,18 @@ const ContactModal = memo(
               transform: scale(1);
             }
           }
-
-          /* Modal Orb Animation */
-          .modal-orb {
-            animation: float-modal 8s ease-in-out infinite;
+          .animate-fadeIn {
+            animation: fadeIn 0.2s ease-out;
           }
-
-          @keyframes float-modal {
-            0%,
-            100% {
-              transform: translate(0, 0) scale(1);
-              opacity: 0.3;
-            }
-            50% {
-              transform: translate(20px, 20px) scale(1.1);
-              opacity: 0.5;
-            }
+          .animate-scaleIn {
+            animation: scaleIn 0.2s ease-out;
           }
-
-          /* Scrollbar */
-          .modal-scrollbar::-webkit-scrollbar {
+          .scrollbar-thin::-webkit-scrollbar {
             width: 6px;
           }
-
-          .modal-scrollbar::-webkit-scrollbar-thumb {
-            background: rgb(51 65 85);
+          .scrollbar-thin::-webkit-scrollbar-thumb {
+            background: rgb(71 85 105);
             border-radius: 3px;
-          }
-
-          /* Performance */
-          .contact-modal,
-          .modal-orb {
-            will-change: transform, opacity;
           }
         `}</style>
       </>
@@ -334,23 +298,23 @@ export default function ResidencyPlans({ onChatClick }) {
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
 
-        {/* CSS-only Ambient Orbs */}
+        {/* Lighter Orbs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="plans-orb plans-orb-1 absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-full blur-3xl" />
-          <div className="plans-orb plans-orb-2 absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-tr from-cyan-500/10 to-blue-500/10 rounded-full blur-3xl" />
+          <div className="orb-1 absolute top-20 right-20 w-80 h-80 bg-indigo-500/8 rounded-full blur-xl" />
+          <div className="orb-2 absolute bottom-20 left-20 w-80 h-80 bg-purple-500/8 rounded-full blur-xl" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto">
-          {/* Section Header */}
+          {/* Header */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 backdrop-blur-xl border border-white/10 px-4 py-2 rounded-full mb-6">
+            <div className="inline-flex items-center gap-2 bg-slate-900/80 border border-indigo-500/20 px-4 py-2 rounded-full mb-6">
               <Sparkles className="w-4 h-4 text-indigo-400" />
-              <span className="text-sm font-medium bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+              <span className="text-sm font-medium text-indigo-300">
                 پکیج‌های آراکس
               </span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white tracking-tight">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
               پکیج‌های{" "}
               <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                 اقامت ارمنستان
@@ -370,20 +334,15 @@ export default function ResidencyPlans({ onChatClick }) {
               return (
                 <div
                   key={plan.id}
-                  className={`plan-card group relative backdrop-blur-xl bg-white/5 border rounded-2xl p-6 cursor-pointer transition-all duration-300 overflow-hidden ${
+                  className={`group relative bg-slate-900/50 border rounded-2xl p-6 cursor-pointer transition-all duration-200 hover:-translate-y-2 ${
                     plan.popular
-                      ? "border-indigo-500/50 shadow-2xl shadow-indigo-500/20"
-                      : "border-white/10 hover:border-white/20"
+                      ? "border-indigo-500/50"
+                      : "border-slate-700/50 hover:border-slate-600"
                   }`}>
-                  {/* Gradient Background on Hover */}
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${plan.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
-                  />
-
                   {/* Popular Badge */}
                   {plan.popular && (
                     <div className="absolute -top-3 -right-3 z-10">
-                      <div className="flex items-center gap-1.5 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-xl">
+                      <div className="flex items-center gap-1.5 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white text-xs font-bold px-4 py-1.5 rounded-full">
                         <Crown className="w-3.5 h-3.5" />
                         <span>محبوب‌ترین</span>
                       </div>
@@ -392,18 +351,18 @@ export default function ResidencyPlans({ onChatClick }) {
 
                   {/* Icon */}
                   <div
-                    className={`relative w-16 h-16 rounded-2xl bg-gradient-to-br ${plan.gradient} p-3.5 mb-5 shadow-lg`}>
+                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${plan.gradient} p-3.5 mb-5`}>
                     <Icon className="w-full h-full text-white" />
                   </div>
 
-                  {/* Title & Duration */}
+                  {/* Title */}
                   <h3 className="text-xl font-bold mb-2 text-white">
                     {plan.title}
                   </h3>
                   <div
-                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium mb-5 bg-gradient-to-r ${plan.gradient} bg-opacity-10 backdrop-blur-sm`}>
+                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium mb-5 bg-gradient-to-r ${plan.gradient} bg-opacity-10`}>
                     <div
-                      className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${plan.gradient} animate-pulse`}
+                      className={`w-1.5 h-1.5 rounded-full bg-white animate-pulse`}
                     />
                     <span className="text-white/90">
                       {plan.duration}
@@ -412,7 +371,7 @@ export default function ResidencyPlans({ onChatClick }) {
 
                   {/* Price */}
                   <div className="mb-5">
-                    <span className="text-4xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+                    <span className="text-4xl font-bold text-white">
                       {plan.price}
                     </span>
                     {!plan.contactRequired && (
@@ -444,13 +403,13 @@ export default function ResidencyPlans({ onChatClick }) {
                     ))}
                   </ul>
 
-                  {/* CTA Button */}
+                  {/* CTA */}
                   <button
                     onClick={() => handlePlanClick(plan)}
-                    className={`relative w-full py-3.5 rounded-xl font-semibold transition-all duration-300 overflow-hidden hover:scale-[1.02] active:scale-[0.98] ${
+                    className={`w-full py-3.5 rounded-xl font-semibold transition-all hover:scale-[1.02] active:scale-[0.98] ${
                       plan.popular
-                        ? "bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50"
-                        : "bg-white/5 text-white border border-white/10 hover:bg-white/10 hover:border-white/20"
+                        ? "bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white"
+                        : "bg-slate-800/80 text-white border border-slate-700 hover:bg-slate-800"
                     }`}>
                     {plan.contactRequired ? (
                       <span className="flex items-center justify-center gap-2">
@@ -461,13 +420,6 @@ export default function ResidencyPlans({ onChatClick }) {
                       "انتخاب پکیج"
                     )}
                   </button>
-
-                  {/* Corner Decoration */}
-                  <div className="absolute bottom-0 right-0 w-32 h-32 opacity-5 overflow-hidden pointer-events-none">
-                    <div
-                      className={`absolute -bottom-8 -right-8 w-32 h-32 bg-gradient-to-tl ${plan.gradient} rounded-full blur-2xl`}
-                    />
-                  </div>
                 </div>
               );
             })}
@@ -475,7 +427,7 @@ export default function ResidencyPlans({ onChatClick }) {
 
           {/* Trust Badge */}
           <div className="mt-16 text-center">
-            <div className="inline-flex items-center gap-3 backdrop-blur-xl bg-white/5 border border-white/10 px-6 py-3 rounded-full">
+            <div className="inline-flex items-center gap-3 bg-slate-900/50 border border-slate-700/50 px-6 py-3 rounded-full">
               <div className="flex -space-x-2">
                 {[...Array(3)].map((_, i) => (
                   <div
@@ -494,55 +446,24 @@ export default function ResidencyPlans({ onChatClick }) {
         </div>
 
         <style jsx>{`
-          /* Background Orbs Animation */
-          .plans-orb-1 {
-            animation: float-plans-1 8s ease-in-out infinite;
+          .orb-1 {
+            animation: float 10s ease-in-out infinite;
           }
-          .plans-orb-2 {
-            animation: float-plans-2 10s ease-in-out infinite;
+          .orb-2 {
+            animation: float 12s ease-in-out infinite reverse;
           }
-
-          @keyframes float-plans-1 {
+          @keyframes float {
             0%,
             100% {
-              transform: translate(0, 0) scale(1);
-              opacity: 0.3;
+              transform: translate(0, 0);
             }
             50% {
-              transform: translate(30px, 30px) scale(1.15);
-              opacity: 0.5;
+              transform: translate(20px, 20px);
             }
-          }
-
-          @keyframes float-plans-2 {
-            0%,
-            100% {
-              transform: translate(0, 0) scale(1.2);
-              opacity: 0.2;
-            }
-            50% {
-              transform: translate(-30px, -30px) scale(1);
-              opacity: 0.4;
-            }
-          }
-
-          /* Plan Card Hover */
-          .plan-card {
-            will-change: transform;
-          }
-
-          .plan-card:hover {
-            transform: translateY(-8px);
-          }
-
-          /* Performance */
-          .plans-orb {
-            will-change: transform, opacity;
           }
         `}</style>
       </section>
 
-      {/* Contact Modal */}
       <ContactModal
         isOpen={showContactModal}
         onClose={() => setShowContactModal(false)}
