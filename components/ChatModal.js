@@ -10,6 +10,29 @@ import {
 import { X, Send, Sparkles } from "lucide-react";
 import { useChatModalStore } from "@/store/chatModalStore";
 
+// Function to detect and linkify URLs
+const linkifyText = (text) => {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const parts = text.split(urlRegex);
+
+  return parts.map((part, index) => {
+    if (part.match(urlRegex)) {
+      return (
+        <a
+          key={index}
+          href={part}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-blue-300 transition-colors"
+          onClick={(e) => e.stopPropagation()}>
+          {part}
+        </a>
+      );
+    }
+    return part;
+  });
+};
+
 // Optimized Message Component
 const Message = memo(({ message }) => (
   <div
@@ -22,7 +45,9 @@ const Message = memo(({ message }) => (
           ? "bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white"
           : "bg-slate-800/80 border border-slate-700/50 text-slate-200"
       }`}>
-      <p className="text-sm leading-relaxed">{message.text}</p>
+      <p className="text-sm leading-relaxed break-words">
+        {linkifyText(message.text)}
+      </p>
       <span
         className={`text-xs mt-1 block ${
           message.sender === "user"
