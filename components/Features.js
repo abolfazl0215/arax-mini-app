@@ -117,12 +117,10 @@ export default function Features() {
         </div>
 
         {/* Banner - Simplified */}
-        <div className="relative group bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-2xl p-8 text-center overflow-hidden">
-          {/* Simple Orb */}
+        {/* <div className="relative group bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-2xl p-8 text-center overflow-hidden">
           <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full blur-2xl" />
 
           <div className="relative z-10">
-            {/* Icon */}
             <div className="inline-flex mb-4">
               <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 p-3">
                 <Gift className="w-full h-full text-white" />
@@ -144,7 +142,7 @@ export default function Features() {
               <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <style jsx>{`
