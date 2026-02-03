@@ -1,5 +1,6 @@
 "use client";
 
+import { useChatModalStore } from "@/store/chatModalStore";
 import {
   Building2,
   GraduationCap,
@@ -15,7 +16,7 @@ import {
   MapPin,
   MessageCircle,
 } from "lucide-react";
-import { useState, memo } from "react";
+import { useState, memo, useEffect } from "react";
 
 const plans = [
   {
@@ -104,6 +105,33 @@ const plans = [
 // Optimized Modal - Removed backdrop-blur
 const ContactModal = memo(
   ({ isOpen, onClose, plan, onChatClick }) => {
+    const openChat = useChatModalStore((s) => s.openChat);
+
+    // Telegram Web App Back Button Handler
+    useEffect(() => {
+      if (typeof window !== "undefined" && window.Telegram?.WebApp) {
+        const tg = window.Telegram.WebApp;
+
+        if (isOpen) {
+          // نمایش دکمه Back
+          tg.BackButton.show();
+
+          // تعریف handler برای کلیک روی Back Button
+          const handleBackButton = () => {
+            onClose();
+          };
+
+          tg.BackButton.onClick(handleBackButton);
+
+          // پاکسازی در هنگام بسته شدن مودال
+          return () => {
+            tg.BackButton.offClick(handleBackButton);
+            tg.BackButton.hide();
+          };
+        }
+      }
+    }, [isOpen, onClose]);
+
     if (!isOpen) return null;
 
     return (
@@ -151,8 +179,8 @@ const ContactModal = memo(
               {/* Primary CTA */}
               <button
                 onClick={() => {
-                  onChatClick?.();
-                  onClose();
+                  openChat();
+                  // onClose();
                 }}
                 className="w-full mb-6 py-4 px-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-xl font-bold text-white text-base sm:text-lg transition-transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3">
                 <MessageCircle className="w-5 h-5" />

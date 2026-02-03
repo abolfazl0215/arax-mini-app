@@ -7,7 +7,7 @@ import {
   memo,
   useCallback,
 } from "react";
-import { X, Send, Paperclip, Sparkles } from "lucide-react";
+import { X, Send, Sparkles } from "lucide-react";
 import { useChatModalStore } from "@/store/chatModalStore";
 
 // Optimized Message Component
@@ -51,6 +51,31 @@ export default function ChatModal() {
 
   const isOpen = useChatModalStore((s) => s.isChatOpen);
   const onClose = useChatModalStore((s) => s.closeChat);
+
+  // Telegram Web App Back Button Handler
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.Telegram?.WebApp) {
+      const tg = window.Telegram.WebApp;
+
+      if (isOpen) {
+        // نمایش دکمه Back
+        tg.BackButton.show();
+
+        // تعریف handler برای کلیک روی Back Button
+        const handleBackButton = () => {
+          onClose();
+        };
+
+        tg.BackButton.onClick(handleBackButton);
+
+        // پاکسازی در هنگام بسته شدن مودال
+        return () => {
+          tg.BackButton.offClick(handleBackButton);
+          tg.BackButton.hide();
+        };
+      }
+    }
+  }, [isOpen, onClose]);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -158,10 +183,6 @@ export default function ChatModal() {
         {/* Input Area */}
         <div className="relative z-10 p-4 border-t border-slate-700/50 bg-slate-900/80">
           <div className="flex items-end gap-2">
-            <button className="w-10 h-10 rounded-full bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/50 flex items-center justify-center transition-colors flex-shrink-0">
-              <Paperclip className="w-5 h-5 text-slate-400" />
-            </button>
-
             <div className="flex-1 bg-slate-800/80 border border-slate-700/50 rounded-2xl px-4 py-2 focus-within:border-slate-600 transition-colors">
               <textarea
                 value={inputValue}
