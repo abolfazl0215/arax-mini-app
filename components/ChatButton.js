@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useChatModalStore } from "@/store/chatModalStore";
 
 export default function ChatButton() {
-  const onOpen = useChatModalStore((s) => s.isChatOpen);
+  const onOpen = useChatModalStore((s) => s.openChat);
   // const onClose = useChatModalStore((s) => s.closeChat);
   return (
     <motion.div
