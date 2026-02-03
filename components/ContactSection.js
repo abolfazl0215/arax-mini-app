@@ -170,10 +170,13 @@ export default function ContactSection({ tg }) {
                 برای مشاوره حضوری می‌توانید به دفتر ما مراجعه کنید
               </p>
 
-              <button className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-full font-semibold text-white transition-transform hover:scale-105 active:scale-95">
+              <a
+                href="https://maps.app.goo.gl/hDxGprhN8Anprq1y6"
+                target="_blank"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-full font-semibold text-white transition-transform hover:scale-105 active:scale-95">
                 <span>مشاهده در نقشه</span>
                 <MapPin className="w-5 h-5" />
-              </button>
+              </a>
             </div>
 
             {/* Simple Decorative Orbs */}
