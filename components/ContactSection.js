@@ -57,7 +57,7 @@ export default function ContactSection({ tg }) {
       icon: MapPin,
       title: "آدرس دفتر",
       subtitle: "ایروان، ارمنستان",
-      value: "Fuchik 32/3",
+      value: "Fuchik 32/2",
       gradient: "from-emerald-600 via-teal-600 to-cyan-600",
       clickable: false,
     },
