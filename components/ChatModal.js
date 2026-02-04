@@ -7,7 +7,16 @@ import {
   memo,
   useCallback,
 } from "react";
-import { X, Send, Sparkles, MessageCircle, Bot } from "lucide-react";
+import {
+  X,
+  Send,
+  Sparkles,
+  MessageCircle,
+  Bot,
+  AlertCircle,
+  Copy,
+  CheckCircle,
+} from "lucide-react";
 import { useChatModalStore } from "@/store/chatModalStore";
 import {
   useQuery,
@@ -18,33 +27,204 @@ import { ClipLoader } from "react-spinners";
 
 // API Functions
 const fetchMessages = async (telegramId) => {
-  const response = await fetch(
-    `http://localhost:3001/api/messages?telegramId=${telegramId}`,
-  );
-  if (!response.ok) {
-    throw new Error("Failed to fetch messages");
+  try {
+    const response = await fetch(
+      `http://localhost:3001/api/messages?telegramId=${telegramId}`,
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(
+        JSON.stringify({
+          status: response.status,
+          statusText: response.statusText,
+          message: errorData.message || "Failed to fetch messages",
+          error: errorData.error || "Unknown error",
+        }),
+      );
+    }
+
+    return response.json();
+  } catch (error) {
+    if (error.message.startsWith("{")) {
+      throw error;
+    }
+    throw new Error(
+      JSON.stringify({
+        status: 0,
+        message: "Network error or server is not running",
+        error: error.message,
+      }),
+    );
   }
-  return response.json();
 };
 
 const sendMessage = async ({ telegramId, text }) => {
-  const response = await fetch("http://localhost:3001/api/messages", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      telegramId,
-      text,
-      sender: "user",
-    }),
-  });
+  try {
+    const response = await fetch(
+      "http://localhost:3001/api/messages",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          telegramId,
+          text,
+          sender: "user",
+        }),
+      },
+    );
 
-  if (!response.ok) {
-    throw new Error("Failed to send message");
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(
+        JSON.stringify({
+          status: response.status,
+          statusText: response.statusText,
+          message: errorData.message || "Failed to send message",
+          error: errorData.error || "Unknown error",
+        }),
+      );
+    }
+
+    return response.json();
+  } catch (error) {
+    if (error.message.startsWith("{")) {
+      throw error;
+    }
+    throw new Error(
+      JSON.stringify({
+        status: 0,
+        message: "Network error or server is not running",
+        error: error.message,
+      }),
+    );
   }
-  return response.json();
 };
+
+// Error Display Component
+const ErrorDisplay = memo(({ error, onClose, type = "fetch" }) => {
+  const [copied, setCopied] = useState(false);
+
+  let errorObj = {};
+  try {
+    errorObj = JSON.parse(error.message);
+  } catch {
+    errorObj = { message: error.message };
+  }
+
+  const handleCopy = () => {
+    const errorText = JSON.stringify(errorObj, null, 2);
+    navigator.clipboard.writeText(errorText);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-md bg-slate-900 border border-red-500/50 rounded-xl p-4 z-[60] shadow-2xl">
+      {/* Header */}
+      <div className="flex items-start justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center">
+            <AlertCircle className="w-5 h-5 text-red-500" />
+          </div>
+          <div>
+            <h3 className="text-red-400 font-bold text-sm">
+              خطای سرور
+            </h3>
+            <p className="text-slate-500 text-xs">
+              {type === "fetch" ? "دریافت پیام‌ها" : "ارسال پیام"}
+            </p>
+          </div>
+        </div>
+        <button
+          onClick={onClose}
+          className="w-7 h-7 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors">
+          <X className="w-4 h-4 text-slate-400" />
+        </button>
+      </div>
+
+      {/* Error Details */}
+      <div className="bg-slate-950/50 border border-slate-700/50 rounded-lg p-3 mb-3 max-h-60 overflow-y-auto scrollbar-thin">
+        {errorObj.status !== undefined && (
+          <div className="mb-2">
+            <span className="text-slate-500 text-xs">Status:</span>
+            <span className="text-red-400 text-sm font-mono ml-2">
+              {errorObj.status === 0
+                ? "Connection Failed"
+                : errorObj.status}
+            </span>
+          </div>
+        )}
+
+        {errorObj.statusText && (
+          <div className="mb-2">
+            <span className="text-slate-500 text-xs">
+              Status Text:
+            </span>
+            <span className="text-slate-300 text-sm ml-2">
+              {errorObj.statusText}
+            </span>
+          </div>
+        )}
+
+        <div className="mb-2">
+          <span className="text-slate-500 text-xs">Message:</span>
+          <p className="text-slate-200 text-sm mt-1 break-words">
+            {errorObj.message}
+          </p>
+        </div>
+
+        {errorObj.error && (
+          <div>
+            <span className="text-slate-500 text-xs">Error:</span>
+            <p className="text-red-300 text-xs mt-1 break-words font-mono">
+              {errorObj.error}
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Actions */}
+      <div className="flex gap-2">
+        <button
+          onClick={handleCopy}
+          className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 py-2 rounded-lg text-xs font-medium transition-colors flex items-center justify-center gap-1.5">
+          {copied ? (
+            <>
+              <CheckCircle className="w-3.5 h-3.5" />
+              کپی شد
+            </>
+          ) : (
+            <>
+              <Copy className="w-3.5 h-3.5" />
+              کپی خطا
+            </>
+          )}
+        </button>
+        <button
+          onClick={onClose}
+          className="flex-1 bg-red-500/20 hover:bg-red-500/30 text-red-400 py-2 rounded-lg text-xs font-medium transition-colors">
+          بستن
+        </button>
+      </div>
+
+      {/* Tips */}
+      <div className="mt-3 bg-indigo-500/10 border border-indigo-500/20 rounded-lg p-2">
+        <p className="text-indigo-300 text-xs">💡 نکات عیب‌یابی:</p>
+        <ul className="text-slate-400 text-xs mt-1 space-y-1 list-disc list-inside">
+          <li>مطمئن شوید سرور روی پورت 3001 در حال اجراست</li>
+          <li>MongoDB را چک کنید</li>
+          <li>فایل .env را بررسی کنید</li>
+          <li>Console مرورگر را چک کنید (F12)</li>
+        </ul>
+      </div>
+    </div>
+  );
+});
+
+ErrorDisplay.displayName = "ErrorDisplay";
 
 // Function to detect and linkify URLs
 const linkifyText = (text) => {
@@ -127,6 +307,8 @@ export default function ChatModal() {
   const [telegramId, setTelegramId] = useState(null);
   const [isTyping, setIsTyping] = useState(false);
   const [previousMessageCount, setPreviousMessageCount] = useState(0);
+  const [showFetchError, setShowFetchError] = useState(false);
+  const [showSendError, setShowSendError] = useState(false);
   const messagesEndRef = useRef(null);
   const queryClient = useQueryClient();
 
@@ -157,8 +339,13 @@ export default function ChatModal() {
     queryKey: ["messages", telegramId],
     queryFn: () => fetchMessages(telegramId),
     enabled: !!telegramId && isOpen,
-    refetchInterval: 3000, // چک کردن پیام‌های جدید هر 3 ثانیه
+    refetchInterval: 3000,
     staleTime: 1000,
+    retry: 1,
+    onError: (error) => {
+      console.error("Fetch messages error:", error);
+      setShowFetchError(true);
+    },
   });
 
   // مدیریت typing indicator
@@ -167,10 +354,8 @@ export default function ChatModal() {
       messages.length > previousMessageCount &&
       previousMessageCount > 0
     ) {
-      // پیام جدید از سرور اومده
       const lastMessage = messages[messages.length - 1];
       if (lastMessage.sender !== "user") {
-        // اگه پیام از AI بود، typing رو خاموش کن
         setIsTyping(false);
       }
     }
@@ -181,19 +366,18 @@ export default function ChatModal() {
   const sendMessageMutation = useMutation({
     mutationFn: sendMessage,
     onMutate: () => {
-      // وقتی کاربر پیام می‌فرسته، typing indicator رو فعال کن
       setIsTyping(true);
+      setShowSendError(false);
     },
     onSuccess: () => {
-      // Invalidate and refetch messages
       queryClient.invalidateQueries({
         queryKey: ["messages", telegramId],
       });
     },
     onError: (error) => {
-      console.error("Error sending message:", error);
+      console.error("Send message error:", error);
       setIsTyping(false);
-      alert("خطا در ارسال پیام. لطفا دوباره تلاش کنید.");
+      setShowSendError(true);
     },
   });
 
@@ -224,7 +408,6 @@ export default function ChatModal() {
   }, []);
 
   useEffect(() => {
-    // هر وقت پیام جدید اومد یا typing شروع شد، scroll to bottom
     if (messages.length > 0 || isTyping) {
       scrollToBottom();
     }
@@ -250,7 +433,6 @@ export default function ChatModal() {
     [handleSend],
   );
 
-  // دکمه ارتباط مستقیم با ادمین
   const handleContactAdmin = useCallback(() => {
     if (typeof window !== "undefined" && window.Telegram?.WebApp) {
       window.Telegram.WebApp.openTelegramLink(
@@ -269,9 +451,26 @@ export default function ChatModal() {
         onClick={onClose}
       />
 
+      {/* Error Displays */}
+      {isError && showFetchError && (
+        <ErrorDisplay
+          error={error}
+          onClose={() => setShowFetchError(false)}
+          type="fetch"
+        />
+      )}
+
+      {sendMessageMutation.isError && showSendError && (
+        <ErrorDisplay
+          error={sendMessageMutation.error}
+          onClose={() => setShowSendError(false)}
+          type="send"
+        />
+      )}
+
       {/* Chat Modal */}
       <div className="animate-scaleIn fixed inset-x-4 top-4 bottom-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg md:h-[600px] bg-slate-900/95 border border-slate-700/50 rounded-2xl z-50 flex flex-col overflow-hidden">
-        {/* Background Orbs - کاهش blur */}
+        {/* Background Orbs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div
             className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/5 rounded-full opacity-50"
@@ -290,7 +489,11 @@ export default function ChatModal() {
               <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center border border-white/20">
                 <Bot className="w-5 h-5 text-white" />
               </div>
-              <div className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-purple-600" />
+              <div
+                className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-purple-600 ${
+                  isError ? "bg-red-500" : "bg-emerald-500"
+                }`}
+              />
             </div>
             <div>
               <h3 className="text-white font-bold text-sm flex items-center gap-1.5">
@@ -298,8 +501,14 @@ export default function ChatModal() {
                 <Sparkles className="w-3.5 h-3.5" />
               </h3>
               <p className="text-white/70 text-xs flex items-center gap-1">
-                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-                آنلاین 24/7
+                <span
+                  className={`w-1.5 h-1.5 rounded-full ${
+                    isError
+                      ? "bg-red-500"
+                      : "bg-emerald-500 animate-pulse"
+                  }`}
+                />
+                {isError ? "خطا در اتصال" : "آنلاین 24/7"}
               </p>
             </div>
           </div>
@@ -331,17 +540,32 @@ export default function ChatModal() {
         <div className="relative z-10 flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin">
           {isLoading ? (
             <div className="flex items-center justify-center h-full">
-              <ClipLoader color="#8b5cf6" size={40} />
+              <div className="text-center">
+                <ClipLoader color="#8b5cf6" size={40} />
+                <p className="text-slate-400 text-sm mt-3">
+                  در حال بارگذاری...
+                </p>
+              </div>
             </div>
           ) : isError ? (
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
-                <p className="text-red-400 text-sm mb-2">
-                  خطا در بارگذاری پیام‌ها
+                <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-3">
+                  <AlertCircle className="w-8 h-8 text-red-500" />
+                </div>
+                <p className="text-red-400 text-sm mb-2 font-medium">
+                  خطا در اتصال به سرور
                 </p>
-                <p className="text-slate-500 text-xs">
-                  {error.message}
+                <p className="text-slate-500 text-xs mb-3">
+                  امکان دریافت پیام‌ها وجود ندارد
                 </p>
+                <button
+                  onClick={() => {
+                    setShowFetchError(true);
+                  }}
+                  className="text-xs text-indigo-400 hover:text-indigo-300 underline">
+                  مشاهده جزئیات خطا
+                </button>
               </div>
             </div>
           ) : messages.length === 0 ? (
