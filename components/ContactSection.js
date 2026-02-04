@@ -12,13 +12,13 @@ import {
 export default function ContactSection({ tg }) {
   const handleCall = () => {
     if (tg) {
-      tg.openTelegramLink("https://t.me/your_support_username");
+      tg.openTelegramLink("https://t.me/araks_support");
     }
   };
 
   const handleEmail = () => {
     if (tg) {
-      tg.openLink("mailto:info@armenia-residency.com");
+      tg.openLink("mailto:info@araksgroup.com");
     }
   };
 

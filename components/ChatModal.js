@@ -316,7 +316,7 @@ export default function ChatModal() {
   const onClose = useChatModalStore((s) => s.closeChat);
 
   // Admin Telegram Username - تغییر بده به یوزرنیم خودت
-  const ADMIN_USERNAME = "your_admin_username";
+  const ADMIN_USERNAME = "araks_support";
 
   // Get Telegram User ID
   useEffect(() => {

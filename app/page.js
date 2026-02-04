@@ -85,7 +85,8 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-dark-50 pb-20 md:pb-0">
       {/* User Info Display - TEMPORARY */}
-      {userInfo && (
+      
+      {/* {userInfo && (
         <div className="fixed top-4 left-4 z-50 bg-slate-900/95 border border-indigo-500/50 rounded-xl p-4 max-w-xs">
           <div className="flex items-center gap-3 mb-3">
             {userInfo.photoUrl ? (
@@ -138,7 +139,7 @@ export default function Home() {
             )}
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Hero Section */}
       <div id="home">

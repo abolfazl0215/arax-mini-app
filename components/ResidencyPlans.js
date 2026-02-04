@@ -208,11 +208,11 @@ const ContactModal = memo(
                     value: "+374 12 345 6789",
                   },
                   {
-                    href: "mailto:info@araxtour.com",
+                    href: "mailto:info@araxgroup.com",
                     icon: Mail,
                     gradient: "from-cyan-600 to-blue-600",
                     label: "ایمیل",
-                    value: "info@araxtour.com",
+                    value: "info@araxgroup.com",
                   },
                   {
                     href: "https://t.me/your_support_username",
