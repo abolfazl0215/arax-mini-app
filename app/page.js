@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import Hero from "@/components/Hero";
 import ResidencyPlans from "@/components/ResidencyPlans";
 import Features from "@/components/Features";
@@ -9,10 +10,43 @@ import ChatButton from "@/components/ChatButton";
 import ChatModal from "@/components/ChatModal";
 import BottomNav from "@/components/BottomNav";
 
+// API Function برای check کردن کاربر
+const checkUser = async (userData) => {
+  const response = await fetch(
+    "http://localhost:3001/api/checkUser",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to check user");
+  }
+  return response.json();
+};
+
 export default function Home() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [tg, setTg] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
+
+  // Mutation برای ارسال اطلاعات کاربر به سرور
+  const checkUserMutation = useMutation({
+    mutationFn: checkUser,
+    onSuccess: (data) => {
+      console.log("User checked successfully:", data);
+      // می‌تونی اینجا کارهای اضافی انجام بدی
+      // مثلا ذخیره کردن اطلاعات برگشتی از سرور
+    },
+    onError: (error) => {
+      console.error("Error checking user:", error);
+      // می‌تونی اینجا error handling داشته باشی
+    },
+  });
 
   useEffect(() => {
     // Initialize Telegram WebApp
@@ -31,14 +65,19 @@ export default function Home() {
       // Get user info
       const user = telegram.initDataUnsafe?.user;
       if (user) {
-        setUserInfo({
-          id: user.id,
-          firstName: user.first_name,
-          lastName: user.last_name,
-          username: user.username,
-          languageCode: user.language_code,
-          photoUrl: user.photo_url,
-        });
+        const userData = {
+          telegramId: user.id.toString(),
+          firstName: user.first_name || "",
+          lastName: user.last_name || "",
+          username: user.username || "",
+          languageCode: user.language_code || "en",
+          photoUrl: user.photo_url || "",
+        };
+
+        setUserInfo(userData);
+
+        // ارسال اطلاعات کاربر به سرور
+        checkUserMutation.mutate(userData);
       }
     }
   }, []);
@@ -74,12 +113,27 @@ export default function Home() {
           <div className="space-y-1 text-xs">
             <p className="text-slate-300">
               <span className="text-slate-500">ID:</span>{" "}
-              <span className="font-mono">{userInfo.id}</span>
+              <span className="font-mono">{userInfo.telegramId}</span>
             </p>
             {userInfo.languageCode && (
               <p className="text-slate-300">
                 <span className="text-slate-500">Language:</span>{" "}
                 {userInfo.languageCode}
+              </p>
+            )}
+            {checkUserMutation.isPending && (
+              <p className="text-yellow-400 text-xs">
+                Checking user...
+              </p>
+            )}
+            {checkUserMutation.isSuccess && (
+              <p className="text-green-400 text-xs">
+                ✓ User verified
+              </p>
+            )}
+            {checkUserMutation.isError && (
+              <p className="text-red-400 text-xs">
+                ✗ Verification failed
               </p>
             )}
           </div>

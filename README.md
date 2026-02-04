@@ -1,6 +1,7 @@
 # Armenia Residency Telegram Mini App 🇦🇲
 
-یک مینی‌اپ تلگرامی حرفه‌ای برای ارائه خدمات اقامت ارمنستان با طراحی دارک و مدرن.
+یک مینی‌اپ تلگرامی حرفه‌ای برای ارائه خدمات اقامت ارمنستان با طراحی
+دارک و مدرن.
 
 ## ✨ ویژگی‌ها
 
@@ -43,7 +44,7 @@ npm install
 npm run dev
 
 # 3. باز کردن در مرورگر
-# http://localhost:3000
+# https://arax-mini-app-back.onrender.com
 ```
 
 ### Build برای Production
@@ -123,6 +124,7 @@ colors: {
 ### تغییر متن‌ها
 
 فایل‌های کامپوننت در `components/`:
+
 - `Hero.js` - صفحه اصلی
 - `ResidencyPlans.js` - پکیج‌ها
 - `Features.js` - ویژگی‌ها
@@ -155,9 +157,9 @@ POST /api/contact - ارسال فرم تماس
 
 ```js
 const handleSend = async () => {
-  await fetch('/api/messages', {
-    method: 'POST',
-    body: JSON.stringify({ message: inputValue })
+  await fetch("/api/messages", {
+    method: "POST",
+    body: JSON.stringify({ message: inputValue }),
   });
 };
 ```
@@ -194,6 +196,7 @@ This project is private and proprietary.
 ## 💬 پشتیبانی
 
 برای سوالات و پشتیبانی:
+
 - تلگرام: [@your_support_username](https://t.me/your_support_username)
 - ایمیل: info@armenia-residency.com
 

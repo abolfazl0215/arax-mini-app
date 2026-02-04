@@ -148,3 +148,18 @@ export default function Hero() {
     </section>
   );
 }
+
+
+// {
+//   telegramId :Number ,
+//   imageUrl : String,
+//   userName : String ,
+//   fullName : String ,
+//   chat:[
+//     {
+//       message:String,
+//       time:Date,
+//       from:String, // ai/user
+//     }
+//   ]
+// }

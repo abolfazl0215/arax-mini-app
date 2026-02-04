@@ -21,7 +21,7 @@ npm install
 npm run dev
 ```
 
-✅ باز کردن http://localhost:3000
+✅ باز کردن https://arax-mini-app-back.onrender.com
 
 ---
 
@@ -40,7 +40,8 @@ npm run dev
 ngrok http 3000
 ```
 
-URL دریافتی (مثلاً `https://abc123.ngrok.io`) را در BotFather قرار دهید.
+URL دریافتی (مثلاً `https://abc123.ngrok.io`) را در BotFather قرار
+دهید.
 
 ---
 
@@ -67,8 +68,8 @@ const plans = [
   {
     price: "$900", // قیمت خود را بگذارید
     // ...
-  }
-]
+  },
+];
 ```
 
 ### تغییر رنگ اصلی
@@ -104,17 +105,17 @@ app/
 ```js
 export async function POST(request) {
   const body = await request.json();
-  
+
   // ذخیره در دیتابیس
   // await db.messages.create(body);
-  
+
   return Response.json({ success: true });
 }
 
 export async function GET() {
   // دریافت از دیتابیس
   // const messages = await db.messages.findMany();
-  
+
   return Response.json({ messages: [] });
 }
 ```
@@ -126,17 +127,17 @@ export async function GET() {
 ```js
 const handleSend = async () => {
   // خط 23-30 را با این جایگزین کنید:
-  
-  const response = await fetch('/api/messages', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+
+  const response = await fetch("/api/messages", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       text: inputValue,
       userId: tg?.initDataUnsafe?.user?.id,
-      timestamp: new Date()
-    })
+      timestamp: new Date(),
+    }),
   });
-  
+
   const data = await response.json();
   // ...
 };
@@ -238,7 +239,8 @@ npm run dev -- -p 3001
 
 ## 📞 پشتیبانی
 
-مشکل دارید؟ 
+مشکل دارید؟
+
 - README.md اصلی را بخوانید
 - مستندات Next.js: https://nextjs.org/docs
 - Telegram Mini Apps: https://core.telegram.org/bots/webapps

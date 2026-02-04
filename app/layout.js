@@ -1,9 +1,10 @@
-import './globals.css'
+import "./globals.css";
+import ReactQueryProvider from "./ReactQueryProvider";
 
 export const metadata = {
-  title: 'Armenia Residency | اقامت ارمنستان',
-  description: 'دریافت اقامت ارمنستان با بهترین قیمت و خدمات',
-}
+  title: "Armenia Residency | اقامت ارمنستان",
+  description: "دریافت اقامت ارمنستان با بهترین قیمت و خدمات",
+};
 
 export default function RootLayout({ children }) {
   return (
@@ -12,8 +13,8 @@ export default function RootLayout({ children }) {
         <script src="https://telegram.org/js/telegram-web-app.js"></script>
       </head>
       <body className="bg-dark-50 min-h-screen">
-        {children}
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
-  )
+  );
 }
