@@ -13,7 +13,7 @@ import BottomNav from "@/components/BottomNav";
 // API Function برای check کردن کاربر
 const checkUser = async (userData) => {
   const response = await fetch(
-    "http://localhost:3001/api/checkUser",
+    "https://arax-mini-app-back.onrender.com/api/checkUser",
     {
       method: "POST",
       headers: {
