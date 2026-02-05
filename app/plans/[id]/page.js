@@ -29,27 +29,42 @@ export default function PlanDetailPage() {
   const [plan, setPlan] = useState(null);
   const [telegram, setTelegram] = useState(null);
 
+  const isOpenChatModal = useChatModalStore((s) => s.isChatOpen);
+  const isOpenContactModal = useChatModalStore(
+    (s) => s.isContactModalOpen,
+  );
+
   useEffect(() => {
-    // Initialize Telegram WebApp
-    if (typeof window !== "undefined" && window.Telegram?.WebApp) {
-      const tg = window.Telegram.WebApp;
-      setTelegram(tg);
+    if (typeof window === "undefined" || !window.Telegram?.WebApp)
+      return;
 
-      // Expand the app
-      tg.expand();
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+    tg.BackButton.show();
 
-      // Enable back button
-      tg.BackButton.show();
-      tg.BackButton.onClick(() => {
-        router.push("/");
-      });
+    const handleBack = () => {
+      // اول مودال‌ها رو ببند
+      if (isOpenChatModal) {
+        useChatModalStore.getState().closeChat();
+        return;
+      }
 
-      // Cleanup on unmount
-      return () => {
-        tg.BackButton.hide();
-      };
-    }
-  }, [router]);
+      if (isOpenContactModal) {
+        useChatModalStore.getState().closeContactModal();
+        return;
+      }
+
+      // اگر مودالی باز نیست → برگرد صفحه قبل
+      router.push("/");
+    };
+
+    tg.BackButton.onClick(handleBack);
+
+    return () => {
+      tg.BackButton.offClick(handleBack); // ✅ مهم‌ترین بخش
+      tg.BackButton.hide();
+    };
+  }, [router, isOpenChatModal, isOpenContactModal]);
 
   useEffect(() => {
     const foundPlan = plans.find((p) => p.id === parseInt(params.id));
