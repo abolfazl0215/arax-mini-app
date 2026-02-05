@@ -128,20 +128,6 @@ export default function PlanDetailPage() {
         <div className="orb-2 absolute bottom-20 left-20 w-80 h-80 bg-purple-500/8 rounded-full blur-xl" />
       </div>
 
-      {/* Header - Only show for non-Telegram environments */}
-      {!telegram && (
-        <div className="relative z-10 border-b border-slate-800">
-          <div className="max-w-7xl mx-auto px-4 py-6">
-            <Link
-              href="/#plans"
-              className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
-              <ArrowRight className="w-5 h-5" />
-              <span>بازگشت به پکیج‌ها</span>
-            </Link>
-          </div>
-        </div>
-      )}
-
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
