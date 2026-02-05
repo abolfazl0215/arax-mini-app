@@ -9,6 +9,7 @@ import ContactSection from "@/components/ContactSection";
 import ChatButton from "@/components/ChatButton";
 import ChatModal from "@/components/ChatModal";
 import BottomNav from "@/components/BottomNav";
+import ContactModal from "@/components/ContactModal";
 
 // API Function برای check کردن کاربر
 const checkUser = async (userData) => {
@@ -85,7 +86,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-dark-50 pb-20 md:pb-0">
       {/* User Info Display - TEMPORARY */}
-      
+
       {/* {userInfo && (
         <div className="fixed top-4 left-4 z-50 bg-slate-900/95 border border-indigo-500/50 rounded-xl p-4 max-w-xs">
           <div className="flex items-center gap-3 mb-3">
@@ -167,12 +168,7 @@ export default function Home() {
         <ChatButton onClick={() => setIsChatOpen(true)} />
       </div>
 
-      {/* Chat Modal */}
-      <ChatModal
-        isOpen={isChatOpen}
-        onClose={() => setIsChatOpen(false)}
-        tg={tg}
-      />
+      
     </main>
   );
 }
