@@ -10,6 +10,8 @@ import ChatButton from "@/components/ChatButton";
 import ChatModal from "@/components/ChatModal";
 import BottomNav from "@/components/BottomNav";
 import ContactModal from "@/components/ContactModal";
+import ServicesSection from "@/components/ServicesSection";
+import EducationBankSection from "@/components/EducationBankSection";
 
 // API Function برای check کردن کاربر
 const checkUser = async (userData) => {
@@ -160,6 +162,9 @@ export default function Home() {
         <ContactSection tg={tg} />
       </div>
 
+      <ServicesSection />
+      <EducationBankSection />
+
       {/* Bottom Navigation - Mobile Only */}
       <BottomNav onChatClick={() => setIsChatOpen(true)} />
 
@@ -167,8 +172,6 @@ export default function Home() {
       <div className="hidden md:block">
         <ChatButton onClick={() => setIsChatOpen(true)} />
       </div>
-
-      
     </main>
   );
 }
