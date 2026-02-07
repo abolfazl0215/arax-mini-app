@@ -1,217 +1,18 @@
+import { create } from "zustand";
 import {
   Briefcase,
   Building2,
   GraduationCap,
   Stethoscope,
 } from "lucide-react";
-import { create } from "zustand";
 
-const plansData = [
-  {
-    id: 1,
-    icon: Building2,
-    title: "اقامت از طریق ثبت شرکت",
-    duration: "1 ساله",
-    price: "$900",
-    description: "دریافت اقامت یک ساله از طریق ثبت شرکت در ارمنستان",
-    features: [
-      "ثبت شرکت رسمی",
-      "اقامت 1 ساله",
-      "افتتاح حساب بانکی",
-      "پشتیبانی کامل",
-    ],
-    popular: false,
-    gradient: "from-emerald-500 to-teal-500",
-    longDescription:
-      "اقامت از طریق ثبت شرکت یکی از محبوب‌ترین و قانونی‌ترین روش‌های دریافت اقامت در ارمنستان است. با ثبت یک شرکت رسمی در ارمنستان، شما می‌توانید به عنوان مدیر شرکت، اقامت یک ساله دریافت کنید که قابل تمدید می‌باشد.",
-    benefits: [
-      "امکان فعالیت تجاری قانونی در ارمنستان",
-      "دسترسی به سیستم بانکی ارمنستان",
-      "امکان استخدام نیروی کار",
-      "تسهیلات مالیاتی ویژه",
-      "قابلیت تمدید ساده و آسان",
-    ],
-    requirements: [
-      "مدارک شناسایی معتبر",
-      "سرمایه اولیه برای ثبت شرکت",
-      "آدرس ثبتی در ارمنستان",
-      "مدارک مالی مورد نیاز",
-    ],
-    process: [
-      "مشاوره اولیه رایگان",
-      "آماده‌سازی مدارک",
-      "ثبت شرکت در اداره ثبت ارمنستان",
-      "دریافت شناسه مالیاتی",
-      "افتتاح حساب بانکی",
-      "تحویل کارت اقامت",
-    ],
-  },
-  {
-    id: 2,
-    icon: Building2,
-    title: "اقامت 5 ساله",
-    duration: "5 ساله",
-    price: "$1,500",
-    description: "اقامت بلند مدت با امکانات ویژه",
-    features: [
-      "اقامت 5 ساله",
-      "قابل تمدید",
-      "حساب بانکی رایگان",
-      "مشاوره حقوقی",
-    ],
-    popular: true,
-    gradient: "from-indigo-500 to-purple-500",
-    longDescription:
-      "اقامت 5 ساله ارمنستان برای کسانی که قصد سکونت طولانی‌مدت دارند، بهترین گزینه است. این نوع اقامت با مزایای ویژه همراه است و امکان تبدیل به اقامت دائم را در آینده فراهم می‌کند.",
-    benefits: [
-      "اقامت بلندمدت بدون نگرانی تمدید مکرر",
-      "امکان درخواست اقامت دائم پس از 5 سال",
-      "دسترسی به تمام خدمات عمومی",
-      "امکان کار و تجارت آزاد",
-      "حق تردد آزاد در کشورهای منطقه",
-      "تخفیف‌های ویژه در خدمات دولتی",
-    ],
-    requirements: [
-      "گذرنامه معتبر با حداقل 6 ماه اعتبار",
-      "مدارک مالی کافی",
-      "بیمه درمانی معتبر",
-      "سوابق کیفری تمیز",
-      "اثبات محل سکونت در ارمنستان",
-    ],
-    process: [
-      "ارزیابی اولیه مدارک",
-      "تنظیم قرارداد و اخذ مدارک",
-      "ثبت درخواست در وزارت کشور",
-      "بررسی و تایید مدارک",
-      "دریافت اقامت موقت 1 ساله",
-      "تبدیل به اقامت 5 ساله",
-    ],
-  },
-  {
-    id: 3,
-    icon: GraduationCap,
-    title: "اقامت تحصیلی",
-    duration: "تحصیلی",
-    price: "$800",
-    description: "برای دانشجویان و محققین",
-    features: [
-      "پذیرش تحصیلی",
-      "اقامت دانشجویی",
-      "تخفیف ویژه",
-      "پشتیبانی آموزشی",
-    ],
-    popular: false,
-    gradient: "from-cyan-500 to-blue-500",
-    longDescription:
-      "اقامت تحصیلی برای دانشجویان، محققین و اساتیدی که قصد تحصیل یا تدریس در دانشگاه‌های ارمنستان را دارند، طراحی شده است. این نوع اقامت با مزایای ویژه دانشجویی همراه است.",
-    benefits: [
-      "اقامت قانونی در طول تحصیل",
-      "تخفیف در حمل و نقل عمومی",
-      "دسترسی به کتابخانه‌های دانشگاهی",
-      "امکان کار پاره‌وقت",
-      "تخفیف در موزه‌ها و مراکز فرهنگی",
-      "پشتیبانی آموزشی رایگان",
-    ],
-    requirements: [
-      "پذیرش از دانشگاه معتبر ارمنستان",
-      "مدارک تحصیلی قبلی",
-      "توانایی مالی کافی",
-      "بیمه دانشجویی",
-      "گواهی سلامت",
-    ],
-    process: [
-      "اخذ پذیرش از دانشگاه",
-      "تایید مدارک تحصیلی",
-      "درخواست اقامت تحصیلی",
-      "معاینه پزشکی",
-      "دریافت ویزای دانشجویی",
-      "تحویل کارت اقامت تحصیلی",
-    ],
-  },
-  {
-    id: 4,
-    icon: Stethoscope,
-    title: "اقامت پزشکی",
-    duration: "درمانی",
-    price: "$800",
-    description: "برای دریافت خدمات درمانی در ارمنستان",
-    features: [
-      "اقامت در طول درمان",
-      "هماهنگی با بیمارستان",
-      "پشتیبانی پزشکی",
-      "تخفیف ویژه درمان",
-    ],
-    popular: false,
-    gradient: "from-violet-500 to-fuchsia-500",
-    longDescription:
-      "اقامت پزشکی برای افرادی که به ارمنستان برای دریافت خدمات درمانی، جراحی، یا درمان‌های طولانی‌مدت سفر می‌کنند طراحی شده است. این نوع اقامت به شما امکان می‌دهد تا مدت لازم برای درمان در ارمنستان بمانید.",
-    benefits: [
-      "اقامت قانونی در طول درمان",
-      "دسترسی به بیمارستان‌های معتبر",
-      "همراهی با پزشکان متخصص",
-      "تخفیف در خدمات پزشکی",
-      "پشتیبانی 24 ساعته",
-      "امکان همراه داشتن بستگان",
-    ],
-    requirements: [
-      "گواهی پزشکی مبنی بر نیاز به درمان",
-      "رزرو بیمارستان یا کلینیک",
-      "بیمه درمانی بین‌المللی",
-      "توانایی مالی کافی",
-      "مدارک شناسایی معتبر",
-    ],
-    process: [
-      "مشاوره پزشکی آنلاین",
-      "هماهنگی با بیمارستان",
-      "اخذ دعوت‌نامه پزشکی",
-      "درخواست ویزای درمانی",
-      "ورود و شروع درمان",
-      "اخذ اقامت موقت پزشکی",
-    ],
-  },
-  {
-    id: 5,
-    icon: Briefcase,
-    title: "ورک پرمیت + جاب آفر",
-    duration: "کاری",
-    price: "تماس بگیرید",
-    description: "اقامت از طریق کار و استخدام",
-    features: [
-      "جاب آفر معتبر",
-      "ورک پرمیت",
-      "حمایت کامل",
-      "استعلام قیمت",
-    ],
-    popular: false,
-    contactRequired: true,
-    gradient: "from-orange-500 to-amber-500",
-    longDescription:
-      "اقامت کاری از طریق دریافت جاب‌آفر و ورک‌پرمیت برای متخصصان و نیروهای ماهر که در ارمنستان استخدام می‌شوند. این روش یکی از مطمئن‌ترین راه‌های اخذ اقامت است.",
-    benefits: [
-      "اقامت قانونی از طریق اشتغال",
-      "درآمد ثابت و قانونی",
-      "بیمه تامین اجتماعی",
-      "امکان همراه بردن خانواده",
-      "مسیر روشن برای اقامت دائم",
-      "حمایت کارفرما",
-    ],
-    requirements: [
-      "تخصص یا مهارت مورد نیاز بازار",
-      "رزومه کاری معتبر",
-      "مدارک تحصیلی و گواهینامه‌ها",
-      "سوابق کاری مثبت",
-      "آمادگی برای مصاحبه",
-    ],
-    process: [
-      "بررسی رزومه و تخصص",
-      "معرفی به کارفرمایان مناسب",
-      "انجام مصاحبه‌های کاری",
-      "دریافت جاب‌آفر رسمی",
-      "درخواست ورک‌پرمیت",
-      "صدور کارت اقامت کاری",
-    ],
-  },
-];
+// Icon mapping helper
+const iconMap = {
+  Building2: Building2,
+  GraduationCap: GraduationCap,
+  Stethoscope: Stethoscope,
+  Briefcase: Briefcase,
+};
 
 export const useChatModalStore = create((set) => ({
   isChatOpen: false,
@@ -229,8 +30,45 @@ export const useChatModalStore = create((set) => ({
 
   closeContactModal: () => set({ isContactModalOpen: false }),
 
-  plans: plansData,
+  // Plans state
+  plans: [],
+  isLoadingPlans: false,
+  plansError: null,
 
+  // Set plans from API
+  setPlans: (packages) => {
+    const transformedPlans = packages.map((pkg) => ({
+      id: pkg.id,
+      icon: iconMap[pkg.icon] || Building2, // Default to Building2 if icon not found
+      title: pkg.title,
+      titleEn: pkg.titleEn,
+      duration: pkg.duration,
+      price: pkg.priceText || `$${pkg.price.toLocaleString()}`,
+      originalPrice: pkg.originalPrice,
+      discountedPrice: pkg.discountedPrice,
+      hasDiscount: pkg.hasDiscount,
+      discountPercentage: pkg.discountPercentage,
+      campaignEndDate: pkg.campaignEndDate,
+      campaignName: pkg.campaignName,
+      description: pkg.description,
+      features: pkg.features || [],
+      popular: pkg.popular || false,
+      gradient: pkg.gradient || "from-blue-500 to-purple-500",
+      longDescription: pkg.longDescription || "",
+      benefits: pkg.benefits || [],
+      requirements: pkg.requirements || [],
+      process: pkg.process || [],
+      contactRequired: pkg.contactRequired || false,
+    }));
+    set({ plans: transformedPlans, isLoadingPlans: false });
+  },
+
+  setLoadingPlans: (loading) => set({ isLoadingPlans: loading }),
+
+  setPlansError: (error) =>
+    set({ plansError: error, isLoadingPlans: false }),
+
+  // Selected plan
   selectedPlan: {},
   setSelectedPlan: (data) => set({ selectedPlan: data }),
 }));

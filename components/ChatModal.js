@@ -11,7 +11,6 @@ import {
   X,
   Send,
   Sparkles,
-  MessageCircle,
   Bot,
   AlertCircle,
   Copy,
@@ -122,15 +121,15 @@ const ErrorDisplay = memo(({ error, onClose, type = "fetch" }) => {
   };
 
   return (
-    <div className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-md bg-slate-900 border border-red-500/50 rounded-xl p-4 z-[60] shadow-2xl">
+    <div className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-md bg-slate-900/95 border border-red-500/30 rounded-2xl p-5 z-[60] shadow-2xl">
       {/* Header */}
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center">
-            <AlertCircle className="w-5 h-5 text-red-500" />
+      <div className="flex items-start justify-between mb-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
+            <AlertCircle className="w-6 h-6 text-red-400" />
           </div>
           <div>
-            <h3 className="text-red-400 font-bold text-sm">
+            <h3 className="text-red-400 font-bold text-base">
               خطای سرور
             </h3>
             <p className="text-slate-500 text-xs">
@@ -140,15 +139,15 @@ const ErrorDisplay = memo(({ error, onClose, type = "fetch" }) => {
         </div>
         <button
           onClick={onClose}
-          className="w-7 h-7 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors">
+          className="w-8 h-8 rounded-full bg-slate-800/50 hover:bg-slate-700 flex items-center justify-center transition-colors">
           <X className="w-4 h-4 text-slate-400" />
         </button>
       </div>
 
       {/* Error Details */}
-      <div className="bg-slate-950/50 border border-slate-700/50 rounded-lg p-3 mb-3 max-h-60 overflow-y-auto scrollbar-thin">
+      <div className="bg-slate-950/50 border border-slate-700/50 rounded-xl p-4 mb-4 max-h-60 overflow-y-auto scrollbar-thin">
         {errorObj.status !== undefined && (
-          <div className="mb-2">
+          <div className="mb-3">
             <span className="text-slate-500 text-xs">Status:</span>
             <span className="text-red-400 text-sm font-mono ml-2">
               {errorObj.status === 0
@@ -159,7 +158,7 @@ const ErrorDisplay = memo(({ error, onClose, type = "fetch" }) => {
         )}
 
         {errorObj.statusText && (
-          <div className="mb-2">
+          <div className="mb-3">
             <span className="text-slate-500 text-xs">
               Status Text:
             </span>
@@ -169,7 +168,7 @@ const ErrorDisplay = memo(({ error, onClose, type = "fetch" }) => {
           </div>
         )}
 
-        <div className="mb-2">
+        <div className="mb-3">
           <span className="text-slate-500 text-xs">Message:</span>
           <p className="text-slate-200 text-sm mt-1 break-words">
             {errorObj.message}
@@ -187,36 +186,37 @@ const ErrorDisplay = memo(({ error, onClose, type = "fetch" }) => {
       </div>
 
       {/* Actions */}
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         <button
           onClick={handleCopy}
-          className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 py-2 rounded-lg text-xs font-medium transition-colors flex items-center justify-center gap-1.5">
+          className="flex-1 bg-slate-800/50 hover:bg-slate-700 text-slate-200 py-2.5 rounded-xl text-sm font-medium transition-colors flex items-center justify-center gap-2">
           {copied ? (
             <>
-              <CheckCircle className="w-3.5 h-3.5" />
+              <CheckCircle className="w-4 h-4" />
               کپی شد
             </>
           ) : (
             <>
-              <Copy className="w-3.5 h-3.5" />
+              <Copy className="w-4 h-4" />
               کپی خطا
             </>
           )}
         </button>
         <button
           onClick={onClose}
-          className="flex-1 bg-red-500/20 hover:bg-red-500/30 text-red-400 py-2 rounded-lg text-xs font-medium transition-colors">
+          className="flex-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 py-2.5 rounded-xl text-sm font-medium transition-colors">
           بستن
         </button>
       </div>
 
       {/* Tips */}
-      <div className="mt-3 bg-indigo-500/10 border border-indigo-500/20 rounded-lg p-2">
-        <p className="text-indigo-300 text-xs">💡 نکات عیب‌یابی:</p>
-        <ul className="text-slate-400 text-xs mt-1 space-y-1 list-disc list-inside">
-          <li>مطمئن شوید سرور روی پورت 3001 در حال اجراست</li>
-          <li>MongoDB را چک کنید</li>
-          <li>فایل .env را بررسی کنید</li>
+      <div className="mt-4 bg-violet-500/5 border border-violet-500/20 rounded-xl p-3">
+        <p className="text-violet-300 text-xs font-semibold mb-2">
+          💡 نکات عیب‌یابی:
+        </p>
+        <ul className="text-slate-400 text-xs space-y-1.5 list-disc list-inside">
+          <li>مطمئن شوید سرور در حال اجراست</li>
+          <li>اتصال اینترنت را بررسی کنید</li>
           <li>Console مرورگر را چک کنید (F12)</li>
         </ul>
       </div>
@@ -252,18 +252,18 @@ const linkifyText = (text) => {
 // Typing Indicator Component
 const TypingIndicator = memo(() => (
   <div className="flex justify-start">
-    <div className="max-w-[75%] rounded-2xl px-4 py-3 bg-slate-800/80 border border-slate-700/50">
-      <div className="flex items-center gap-1">
+    <div className="max-w-[75%] rounded-2xl px-4 py-3 bg-slate-800/50 border border-slate-700/30">
+      <div className="flex items-center gap-1.5">
         <div
-          className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"
+          className="w-2 h-2 bg-violet-400 rounded-full animate-bounce"
           style={{ animationDelay: "0ms" }}
         />
         <div
-          className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"
+          className="w-2 h-2 bg-violet-400 rounded-full animate-bounce"
           style={{ animationDelay: "150ms" }}
         />
         <div
-          className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"
+          className="w-2 h-2 bg-violet-400 rounded-full animate-bounce"
           style={{ animationDelay: "300ms" }}
         />
       </div>
@@ -282,16 +282,16 @@ const Message = memo(({ message }) => (
     <div
       className={`max-w-[75%] rounded-2xl px-4 py-3 ${
         message.sender === "user"
-          ? "bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white"
-          : "bg-slate-800/80 border border-slate-700/50 text-slate-200"
+          ? "bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-white shadow-lg shadow-violet-500/20"
+          : "bg-slate-800/50 border border-slate-700/30 text-slate-200"
       }`}>
       <p className="text-sm leading-relaxed break-words">
         {linkifyText(message.text)}
       </p>
       <span
-        className={`text-xs mt-1 block ${
+        className={`text-xs mt-1.5 block ${
           message.sender === "user"
-            ? "text-white/70"
+            ? "text-white/60"
             : "text-slate-500"
         }`}>
         {message.time}
@@ -302,6 +302,13 @@ const Message = memo(({ message }) => (
 
 Message.displayName = "Message";
 
+// Telegram Icon Component
+const TelegramIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
+  </svg>
+);
+
 export default function ChatModal() {
   const [inputValue, setInputValue] = useState("");
   const [telegramId, setTelegramId] = useState(null);
@@ -309,14 +316,31 @@ export default function ChatModal() {
   const [previousMessageCount, setPreviousMessageCount] = useState(0);
   const [showFetchError, setShowFetchError] = useState(false);
   const [showSendError, setShowSendError] = useState(false);
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const messagesEndRef = useRef(null);
   const queryClient = useQueryClient();
 
   const isOpen = useChatModalStore((s) => s.isChatOpen);
   const onClose = useChatModalStore((s) => s.closeChat);
 
-  // Admin Telegram Username - تغییر بده به یوزرنیم خودت
+  // Admin Telegram Username
   const ADMIN_USERNAME = "araks_support";
+
+  // Detect Keyboard Open/Close
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleResize = () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.clientHeight;
+
+      // If window height is significantly smaller, keyboard is open
+      setIsKeyboardOpen(windowHeight < documentHeight * 0.8);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Get Telegram User ID
   useEffect(() => {
@@ -469,43 +493,31 @@ export default function ChatModal() {
       )}
 
       {/* Chat Modal */}
-      <div className="animate-scaleIn fixed inset-x-4 top-4 bottom-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg md:h-[600px] bg-slate-900/95 border border-slate-700/50 rounded-2xl z-50 flex flex-col overflow-hidden">
-        {/* Background Orbs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div
-            className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/5 rounded-full opacity-50"
-            style={{ filter: "blur(40px)" }}
-          />
-          <div
-            className="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/5 rounded-full opacity-50"
-            style={{ filter: "blur(40px)" }}
-          />
-        </div>
-
+      <div className="animate-scaleIn fixed inset-x-4 top-4 bottom-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg md:h-[600px] bg-slate-900 border border-slate-700/30 rounded-3xl z-50 flex flex-col overflow-hidden shadow-2xl">
         {/* Header */}
-        <div className="relative z-10 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-4 flex items-center justify-between">
+        <div className="relative z-10 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 p-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="relative">
-              <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center border border-white/20">
-                <Bot className="w-5 h-5 text-white" />
+              <div className="w-11 h-11 bg-white/10 rounded-2xl flex items-center justify-center border border-white/20">
+                <Bot className="w-6 h-6 text-white" />
               </div>
               <div
-                className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-purple-600 ${
-                  isError ? "bg-red-500" : "bg-emerald-500"
+                className={`absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-violet-600 ${
+                  isError ? "bg-red-500" : "bg-emerald-400"
                 }`}
               />
             </div>
             <div>
-              <h3 className="text-white font-bold text-sm flex items-center gap-1.5">
+              <h3 className="text-white font-bold text-base flex items-center gap-2">
                 پشتیبانی هوشمند AI
-                <Sparkles className="w-3.5 h-3.5" />
+                <Sparkles className="w-4 h-4" />
               </h3>
-              <p className="text-white/70 text-xs flex items-center gap-1">
+              <p className="text-white/70 text-xs flex items-center gap-1.5 mt-0.5">
                 <span
                   className={`w-1.5 h-1.5 rounded-full ${
                     isError
-                      ? "bg-red-500"
-                      : "bg-emerald-500 animate-pulse"
+                      ? "bg-red-400"
+                      : "bg-emerald-400 animate-pulse"
                   }`}
                 />
                 {isError ? "خطا در اتصال" : "آنلاین 24/7"}
@@ -515,34 +527,36 @@ export default function ChatModal() {
 
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center transition-colors active:scale-95">
-            <X className="w-4 h-4 text-white" />
+            className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center transition-all active:scale-95">
+            <X className="w-5 h-5 text-white" />
           </button>
         </div>
 
-        {/* AI Notice Banner */}
-        <div className="relative z-10 bg-indigo-500/10 border-b border-indigo-500/20 px-4 py-2">
-          <div className="flex items-center justify-between gap-2">
-            <p className="text-xs text-indigo-200 flex items-center gap-1.5">
-              <Bot className="w-3.5 h-3.5" />
-              پاسخ‌ها توسط هوش مصنوعی ارائه می‌شود
-            </p>
-            <button
-              onClick={handleContactAdmin}
-              className="text-xs text-white/90 hover:text-white bg-white/10 hover:bg-white/20 px-2.5 py-1 rounded-full transition-colors flex items-center gap-1 active:scale-95">
-              <MessageCircle className="w-3 h-3" />
-              ارتباط مستقیم
-            </button>
+        {/* AI Notice Banner - Hide when keyboard is open */}
+        {!isKeyboardOpen && (
+          <div className="relative z-10 bg-violet-500/10 border-b border-violet-500/20 px-5 py-3">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-xs text-violet-200 flex items-center gap-2">
+                <Bot className="w-4 h-4" />
+                پاسخ‌ها توسط هوش مصنوعی ارائه می‌شود
+              </p>
+              <button
+                onClick={handleContactAdmin}
+                className="relative text-xs text-white font-semibold bg-blue-500 hover:bg-blue-600 px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 active:scale-95 shadow-lg shadow-blue-500/30 animate-blink">
+                <TelegramIcon />
+                <span>ارتباط مستقیم در تلگرام</span>
+              </button>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Messages */}
-        <div className="relative z-10 flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin">
+        <div className="relative z-10 flex-1 overflow-y-auto p-5 space-y-4 scrollbar-thin">
           {isLoading ? (
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
                 <ClipLoader color="#8b5cf6" size={40} />
-                <p className="text-slate-400 text-sm mt-3">
+                <p className="text-slate-400 text-sm mt-4">
                   در حال بارگذاری...
                 </p>
               </div>
@@ -550,20 +564,20 @@ export default function ChatModal() {
           ) : isError ? (
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
-                <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-3">
-                  <AlertCircle className="w-8 h-8 text-red-500" />
+                <div className="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center mx-auto mb-4">
+                  <AlertCircle className="w-8 h-8 text-red-400" />
                 </div>
-                <p className="text-red-400 text-sm mb-2 font-medium">
+                <p className="text-red-400 text-base mb-2 font-semibold">
                   خطا در اتصال به سرور
                 </p>
-                <p className="text-slate-500 text-xs mb-3">
+                <p className="text-slate-500 text-sm mb-4">
                   امکان دریافت پیام‌ها وجود ندارد
                 </p>
                 <button
                   onClick={() => {
                     setShowFetchError(true);
                   }}
-                  className="text-xs text-indigo-400 hover:text-indigo-300 underline">
+                  className="text-sm text-violet-400 hover:text-violet-300 underline">
                   مشاهده جزئیات خطا
                 </button>
               </div>
@@ -571,11 +585,11 @@ export default function ChatModal() {
           ) : messages.length === 0 ? (
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
-                <Bot className="w-12 h-12 text-purple-500 mx-auto mb-3 opacity-50" />
-                <p className="text-slate-400 text-sm font-medium">
+                <Bot className="w-14 h-14 text-violet-500 mx-auto mb-4 opacity-60" />
+                <p className="text-slate-300 text-base font-semibold">
                   سلام! من دستیار هوشمند شما هستم
                 </p>
-                <p className="text-slate-500 text-xs mt-1">
+                <p className="text-slate-500 text-sm mt-2">
                   سوالات خود را از من بپرسید
                 </p>
               </div>
@@ -592,9 +606,9 @@ export default function ChatModal() {
         </div>
 
         {/* Input Area */}
-        <div className="relative z-10 p-4 border-t border-slate-700/50 bg-slate-900/80">
-          <div className="flex items-end gap-2">
-            <div className="flex-1 bg-slate-800/80 border border-slate-700/50 rounded-2xl px-4 py-2 focus-within:border-slate-600 transition-colors">
+        <div className="relative z-10 p-5 border-t border-slate-700/30 bg-slate-900/50">
+          <div className="flex items-end gap-3">
+            <div className="flex-1 bg-slate-800/50 border border-slate-700/30 rounded-2xl px-4 py-3 focus-within:border-violet-500/40 transition-colors">
               <textarea
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
@@ -615,7 +629,7 @@ export default function ChatModal() {
                 sendMessageMutation.isPending ||
                 !telegramId
               }
-              className="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center transition-all flex-shrink-0 hover:scale-105 active:scale-95 will-change-transform">
+              className="w-11 h-11 rounded-2xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-all flex-shrink-0 hover:scale-105 active:scale-95 shadow-lg shadow-violet-500/30">
               {sendMessageMutation.isPending ? (
                 <ClipLoader color="#ffffff" size={20} />
               ) : (
@@ -624,8 +638,8 @@ export default function ChatModal() {
             </button>
           </div>
 
-          <p className="text-xs text-slate-500 text-center mt-3 flex items-center justify-center gap-1.5">
-            <Bot className="w-3 h-3" />
+          <p className="text-xs text-slate-500 text-center mt-3 flex items-center justify-center gap-2">
+            <Bot className="w-3.5 h-3.5" />
             پاسخ‌های خودکار در کمتر از چند ثانیه
           </p>
         </div>
@@ -660,6 +674,20 @@ export default function ChatModal() {
           animation: scaleIn 0.2s ease-out;
         }
 
+        /* Blink Animation for Telegram Button */
+        @keyframes blink {
+          0%,
+          100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.7;
+          }
+        }
+        .animate-blink {
+          animation: blink 2s ease-in-out infinite;
+        }
+
         /* Mobile */
         @media (max-width: 768px) {
           .animate-scaleIn {
@@ -682,11 +710,11 @@ export default function ChatModal() {
           width: 6px;
         }
         .scrollbar-thin::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(139, 92, 246, 0.3);
           border-radius: 3px;
         }
         .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-          background: rgba(255, 255, 255, 0.15);
+          background: rgba(139, 92, 246, 0.5);
         }
       `}</style>
     </>

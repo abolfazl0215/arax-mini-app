@@ -2,53 +2,78 @@
 
 import { useChatModalStore } from "@/store/chatModalStore";
 import { motion } from "framer-motion";
-import { MapPin, Shield, TrendingUp, Sparkles } from "lucide-react";
+import {
+  Sparkles,
+  ArrowLeft,
+  Award,
+  Users,
+  Clock,
+  Shield,
+} from "lucide-react";
 
 export default function Hero() {
   const onChatClick = useChatModalStore((s) => s.openChat);
 
   return (
-    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden px-4 py-16">
-      {/* Static Background - No Animation */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
-      <div className="absolute inset-0 bg-gradient-to-tr from-indigo-950/20 via-transparent to-purple-950/20" />
+    <section className="relative  min-h-screen md:min-h-[85vh] flex items-center justify-center overflow-hidden px-4 py-16 md:py-20">
+      {/* Background */}
+      <div className="absolute inset-0 bg-[#0B0B0F]" />
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-950/20 via-transparent to-fuchsia-950/20" />
 
-      {/* Reduced to 2 Orbs - Lighter Blur */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="orb-1 absolute top-1/4 right-1/4 w-80 h-80 bg-indigo-500/15 rounded-full blur-2xl" />
-        <div className="orb-2 absolute bottom-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-2xl" />
+      {/* Light Orbs */}
+      <div className="absolute grid-bg-dark inset-0 overflow-hidden pointer-events-none">
+        <div
+          className="absolute top-0 right-1/4 w-[400px] h-[400px] md:w-[500px] md:h-[500px] rounded-full opacity-20"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)",
+            animation: "fadeInOut 8s ease-in-out infinite",
+          }}
+        />
+        <div
+          className="absolute bottom-0 left-1/4 w-[450px] h-[450px] md:w-[600px] md:h-[600px] rounded-full opacity-15"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%)",
+            animation: "fadeInOut 10s ease-in-out infinite 2s",
+          }}
+        />
       </div>
 
-      {/* Static Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] opacity-30" />
+      {/* Grid */}
 
       {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto text-center">
-        {/* Badge - No backdrop-blur */}
+      <div className="relative  z-10 max-w-6xl mx-auto text-center">
+        {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="inline-flex items-center gap-2 bg-slate-900/80 border border-indigo-500/20 px-5 py-2.5 rounded-full mb-8">
-          <Sparkles className="w-4 h-4 text-indigo-400" />
-          <span className="text-sm font-medium text-indigo-300">
-            شرکت آراکس - خدمات اقامت ارمنستان
+          className="inline-flex items-center gap-2 sm:gap-3 bg-slate-900/90 border border-violet-500/20 px-4 sm:px-6 py-2 sm:py-3 rounded-full mb-8 md:mb-10">
+          <Sparkles className="w-4 h-4 text-violet-400" />
+          <span className="text-xs sm:text-sm font-semibold text-violet-200">
+            شرکت آراکس - پیشرو در خدمات اقامت ارمنستان
           </span>
-          <div className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
+          <div className="relative w-2 h-2 rounded-full bg-violet-400">
+            <div className="absolute inset-0 rounded-full bg-violet-400 animate-ping opacity-75" />
+          </div>
         </motion.div>
 
-        {/* Heading - Simple Animation */}
+        {/* Heading */}
         <motion.h1
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[1.1] tracking-tight">
-          <span className="text-white">دریافت اقامت ارمنستان</span>
-          <br />
-          <span className="text-lg md:text-xl text-slate-400 font-normal block mb-3">
+          className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-6 leading-[1.15] md:leading-[1.05] tracking-tight">
+          <span className="block text-white mb-2">
+            دریافت اقامت ارمنستان
+          </span>
+
+          <span className="block text-base sm:text-lg md:text-2xl text-slate-400 font-light my-3 md:my-4">
             با
           </span>
-          <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+
+          <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
             شرکت آراکس
           </span>
         </motion.h1>
@@ -57,109 +82,121 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-[4.3vw] md:text-xl text-slate-300 mb-12 max-w-2xl mx-auto leading-relaxed">
-          سریع، آسان و مطمئن - با تیم حرفه‌ای آراکس، اقامت خود را با بهترین قیمت و
-          کیفیت دریافت کنید
+          transition={{ delay: 0.2 }}
+          className="text-base sm:text-lg md:text-2xl text-slate-300 mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed font-light px-2">
+          سریع، آسان و مطمئن — با تیم حرفه‌ای آراکس، اقامت خود را با{" "}
+          <span className="text-violet-400 font-semibold">
+            بهترین قیمت
+          </span>{" "}
+          و{" "}
+          <span className="text-fuchsia-400 font-semibold">
+            بالاترین کیفیت
+          </span>{" "}
+          دریافت کنید
         </motion.p>
 
-        {/* Stats Cards - No backdrop-blur */}
+        {/* Stats */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.15 }}
-          className="grid grid-cols-3 gap-2 md:gap-6 max-w-3xl mx-auto">
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="grid grid-cols-2 gap-3 sm:gap-4 max-w-xl mx-auto mb-10 md:mb-12">
+          {" "}
           {[
             {
-              icon: Shield,
-              value: "100%",
-              label: "موفقیت",
-              color: "emerald",
-            },
-            {
-              icon: TrendingUp,
-              value: "500+",
+              icon: Users,
+              value: "+500",
               label: "مشتری راضی",
-              color: "indigo",
+              borderColor: "border-violet-500/20",
+              iconBg: "bg-violet-500/10",
+              iconColor: "text-violet-400",
             },
             {
-              icon: MapPin,
+              icon: Award,
               value: "5",
               label: "نوع اقامت",
-              color: "cyan",
+              borderColor: "border-cyan-500/20",
+              iconBg: "bg-cyan-500/10",
+              iconColor: "text-cyan-400",
             },
           ].map((stat, index) => (
-            <div
+            <motion.div
               key={index}
-              className="group relative bg-slate-900/50 border border-slate-700/50 rounded-2xl p-[3vw] md:p-6 transition-all duration-200 hover:border-slate-600">
-              {/* Icon */}
-              <div
-                className={`relative w-12 h-12 mx-auto mb-3 rounded-xl bg-${stat.color}-500/10 p-2.5`}>
-                <stat.icon className={`w-full h-full text-${stat.color}-400`} />
+              whileHover={{ y: -4 }}
+              className={`group bg-slate-900/80 border ${stat.borderColor} rounded-2xl p-4 sm:p-5 md:p-6`}>
+              <div className="flex items-center gap-4 mb-2">
+                <div
+                  className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl ${stat.iconBg} flex items-center justify-center`}>
+                  <stat.icon
+                    className={`w-5 h-5 ${stat.iconColor}`}
+                  />
+                </div>
+                <div className="text-3xl sm:text-4xl md:text-5xl font-black text-white">
+                  {stat.value}
+                </div>
               </div>
-
-              {/* Value */}
-              <div className="relative text-[6vw] md:text-4xl font-bold text-white mb-1">
-                {stat.value}
-              </div>
-
-              {/* Label */}
-              <div className="relative text-[3.5vw] md:text-sm text-slate-400">
+              <div className="text-xs sm:text-sm md:text-base font-semibold text-slate-300 text-right">
                 {stat.label}
               </div>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
 
-        {/* CTA Button */}
+        {/* Buttons */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-12">
-          <button
+          transition={{ delay: 0.4 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <motion.button
             onClick={onChatClick}
-            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full font-semibold text-white transition-transform duration-200 hover:scale-105">
-            <span>مشاوره رایگان</span>
+            whileTap={{ scale: 0.97 }}
+            className="w-full sm:w-auto justify-center inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 md:px-10 py-4 md:py-5 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 rounded-2xl font-bold text-base sm:text-lg text-white shadow-lg shadow-violet-500/30">
+            <span>مشاوره رایگان دریافت کنید</span>
             <Sparkles className="w-5 h-5" />
-          </button>
+            <ArrowLeft className="w-5 h-5" />
+          </motion.button>
+
+          {/* <motion.button
+            whileTap={{ scale: 0.97 }}
+            className="w-full sm:w-auto justify-center inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 md:px-10 py-4 md:py-5 bg-slate-900/70 border border-slate-700/50 rounded-2xl font-semibold text-base sm:text-lg text-white">
+            <Clock className="w-5 h-5 text-slate-400" />
+            <span>درباره ما بیشتر بدانید</span>
+          </motion.button> */}
+        </motion.div>
+
+        {/* Trust */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-12 md:mt-16 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 text-xs sm:text-sm text-slate-400">
+          <div className="flex items-center gap-2">
+            <Shield className="w-4 h-4 text-emerald-400" />
+            <span>تضمین بازگشت وجه</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4 text-violet-400" />
+            <span>پشتیبانی 24/7</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Award className="w-4 h-4 text-cyan-400" />
+            <span>مجوز رسمی</span>
+          </div>
         </motion.div>
       </div>
 
       <style jsx>{`
-        /* Lighter Orb Animations */
-        .orb-1 {
-          animation: float-simple 15s ease-in-out infinite;
-        }
-        .orb-2 {
-          animation: float-simple 18s ease-in-out infinite reverse;
-        }
-
-        @keyframes float-simple {
+        @keyframes fadeInOut {
           0%,
           100% {
-            transform: translate(0, 0);
+            opacity: 0.15;
           }
           50% {
-            transform: translate(30px, 20px);
+            opacity: 0.25;
           }
         }
       `}</style>
     </section>
   );
 }
-
-
-// {
-//   telegramId :Number ,
-//   imageUrl : String,
-//   userName : String ,
-//   fullName : String ,
-//   chat:[
-//     {
-//       message:String,
-//       time:Date,
-//       from:String, // ai/user
-//     }
-//   ]
-// }

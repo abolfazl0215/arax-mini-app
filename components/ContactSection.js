@@ -10,28 +10,28 @@ import {
 } from "lucide-react";
 
 export default function ContactSection({ tg }) {
-  const handleCall = () => {
-    if (tg) {
-      tg.openTelegramLink("https://t.me/araks_support");
-    }
-  };
-
-  const handleEmail = () => {
-    if (tg) {
-      tg.openLink("mailto:info@araksgroup.com");
-    }
+  const openTelegram = () => {
+    if (tg) tg.openTelegramLink("https://t.me/araks_support");
+    else window.open("https://t.me/araks_support", "_blank");
   };
 
   const contactItems = [
+    {
+      icon: Send,
+      title: "پشتیبانی تلگرام",
+      subtitle: "سریع‌ترین راه ارتباط",
+      value: "@araks_support",
+      gradient: "from-cyan-500 via-blue-500 to-indigo-500",
+      onClick: openTelegram,
+      primary: true,
+    },
     {
       icon: Phone,
       title: "تماس تلفنی",
       subtitle: "پاسخگویی 24/7",
       value: "+374 12 345 6789",
       href: "tel:+374123456789",
-      gradient: "from-indigo-600 via-purple-600 to-pink-600",
-      onClick: handleCall,
-      clickable: true,
+      gradient: "from-indigo-500 via-purple-500 to-pink-500",
     },
     {
       icon: Mail,
@@ -39,172 +39,123 @@ export default function ContactSection({ tg }) {
       subtitle: "پاسخ طی 24 ساعت",
       value: "info@araksgroup.com",
       href: "mailto:info@araksgroup.com",
-      gradient: "from-purple-600 via-pink-600 to-indigo-600",
-      onClick: handleEmail,
-      clickable: true,
-    },
-    {
-      icon: Send,
-      title: "تلگرام",
-      subtitle: "پشتیبانی آنلاین",
-      value: "@araks_support",
-      href: "https://t.me/araks_support",
-      gradient: "from-cyan-600 via-blue-600 to-indigo-600",
-      onClick: handleCall,
-      clickable: true,
+      gradient: "from-purple-500 via-pink-500 to-indigo-500",
     },
     {
       icon: MapPin,
       title: "آدرس دفتر",
       subtitle: "ایروان، ارمنستان",
       value: "Fuchik 32/2",
-      gradient: "from-emerald-600 via-teal-600 to-cyan-600",
-      clickable: false,
+      gradient: "from-emerald-500 via-teal-500 to-cyan-500",
     },
     {
       icon: Clock,
       title: "ساعات کاری",
       subtitle: "دوشنبه تا شنبه",
-      value: "10:00 صبح - 6:00 عصر (به وقت ایروان)",
-      gradient: "from-indigo-600 via-purple-600 to-pink-600",
-      clickable: false,
+      value: "10:00 – 18:00",
+      gradient: "from-indigo-500 via-purple-500 to-pink-500",
     },
   ];
 
   return (
-    <section className="relative py-20 px-4 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
-
-      {/* Lighter Orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="orb-1 absolute top-1/4 right-1/4 w-80 h-80 bg-indigo-500/8 rounded-full blur-xl" />
-        <div className="orb-2 absolute bottom-1/4 left-1/4 w-80 h-80 bg-purple-500/8 rounded-full blur-xl" />
-      </div>
+    <section className="relative py-16 md:py-24 px-4 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
 
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-slate-900/80 border border-indigo-500/20 px-5 py-2.5 rounded-full mb-6">
+        <div className="text-center mb-12 md:mb-16">
+          <div className="inline-flex items-center gap-2 bg-slate-900 border border-indigo-500/20 px-4 py-2 rounded-full mb-5">
             <Sparkles className="w-4 h-4 text-indigo-400" />
-            <span className="text-sm font-medium text-indigo-300">
-              ارتباط با ما
+            <span className="text-xs md:text-sm font-medium text-indigo-300">
+              ارتباط سریع
             </span>
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="text-white">تماس با </span>
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 leading-tight">
+            <span className="text-white">برای شروع فقط یک </span>
             <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              ما
+              پیام
             </span>
+            <span className="text-white"> کافیست</span>
           </h2>
 
-          <p className="text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed">
-            تیم پشتیبانی ما آماده پاسخگویی به سوالات شما است
+          <p className="text-slate-400 text-sm md:text-lg max-w-xl mx-auto">
+            تیم ما آماده پاسخگویی سریع و مشاوره رایگان است
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Contact Cards - No backdrop-blur */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+          {/* Contact Cards */}
           <div className="space-y-4">
-            {contactItems.map((item, index) => (
-              <div
-                key={index}
-                onClick={item.onClick}
-                className={`group relative bg-slate-900/50 border border-slate-700/50 rounded-2xl p-6 hover:border-slate-600 transition-all duration-200 ${
-                  item.clickable
-                    ? "cursor-pointer hover:-translate-y-1"
-                    : ""
-                }`}>
-                <div className="flex items-start gap-4">
-                  {/* Icon */}
-                  <div
-                    className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.gradient} p-2.5 flex-shrink-0`}>
-                    <item.icon className="w-full h-full text-white" />
-                  </div>
+            {contactItems.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={index}
+                  onClick={item.onClick}
+                  className={`group relative rounded-2xl p-5 md:p-6 border transition-all duration-200
+                  ${
+                    item.primary
+                      ? "bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white cursor-pointer hover:scale-[1.02]"
+                      : "bg-slate-900/70 border-slate-700/50 hover:border-indigo-500/40"
+                  }`}>
+                  <div className="flex items-start gap-4">
+                    <div
+                      className={`w-11 h-11 rounded-xl p-2.5 flex-shrink-0 ${
+                        item.primary
+                          ? "bg-white/15"
+                          : `bg-gradient-to-br ${item.gradient}`
+                      }`}>
+                      <Icon className="w-full h-full text-white" />
+                    </div>
 
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-lg font-bold text-white mb-1">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-slate-400 mb-2">
-                      {item.subtitle}
-                    </p>
-                    {item.href ? (
-                      <a
-                        href={item.href}
-                        className="text-sm text-indigo-400 hover:text-indigo-300 transition-colors font-medium"
-                        dir="ltr"
-                        onClick={(e) => e.stopPropagation()}>
-                        {item.value}
-                      </a>
-                    ) : (
-                      <p className="text-sm text-slate-300">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-base md:text-lg font-bold mb-1">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm opacity-80 mb-1">
+                        {item.subtitle}
+                      </p>
+                      <p
+                        className={`text-sm font-medium ${
+                          item.primary
+                            ? "text-white"
+                            : "text-indigo-400"
+                        }`}
+                        dir="ltr">
                         {item.value}
                       </p>
-                    )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
-          {/* Map Section - Simplified */}
-          <div className="relative group bg-slate-900/50 border border-slate-700/50 rounded-2xl overflow-hidden min-h-[500px] flex items-center justify-center hover:border-slate-600 transition-all duration-200">
-            {/* Simple Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-pink-500/5" />
-
-            <div className="relative z-10 text-center p-8">
-              {/* Icon */}
-              <div className="inline-flex mb-6">
-                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 p-4">
-                  <MapPin className="w-full h-full text-white" />
-                </div>
-              </div>
-
-              <h3 className="text-2xl font-bold text-white mb-3">
-                دفتر ما در ایروان
-              </h3>
-
-              <p className="text-slate-300 mb-8 max-w-sm mx-auto leading-relaxed">
-                برای مشاوره حضوری می‌توانید به دفتر ما مراجعه کنید
-              </p>
-
-              <a
-                href="https://maps.app.goo.gl/hDxGprhN8Anprq1y6"
-                target="_blank"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-full font-semibold text-white transition-transform hover:scale-105 active:scale-95">
-                <span>مشاهده در نقشه</span>
-                <MapPin className="w-5 h-5" />
-              </a>
+          {/* Map CTA */}
+          <div className="relative rounded-2xl p-8 bg-slate-900/70 border border-slate-700/50 flex flex-col items-center justify-center text-center">
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 p-4 mb-6">
+              <MapPin className="w-full h-full text-white" />
             </div>
 
-            {/* Simple Decorative Orbs */}
-            <div className="absolute top-10 right-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-xl animate-pulse" />
-            <div className="absolute bottom-10 left-10 w-40 h-40 bg-purple-500/10 rounded-full blur-xl animate-pulse" />
+            <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
+              دفتر ما در ایروان
+            </h3>
+
+            <p className="text-slate-400 mb-6 max-w-sm">
+              امکان مراجعه حضوری با هماهنگی قبلی
+            </p>
+
+            <a
+              href="https://maps.app.goo.gl/hDxGprhN8Anprq1y6"
+              target="_blank"
+              className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-full font-semibold text-white hover:scale-105 active:scale-95 transition">
+              مشاهده موقعیت روی نقشه
+              <MapPin className="w-5 h-5" />
+            </a>
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        /* Simple Orb Animation */
-        .orb-1 {
-          animation: float 10s ease-in-out infinite;
-        }
-        .orb-2 {
-          animation: float 12s ease-in-out infinite reverse;
-        }
-
-        @keyframes float {
-          0%,
-          100% {
-            transform: translate(0, 0);
-          }
-          50% {
-            transform: translate(20px, 20px);
-          }
-        }
-      `}</style>
     </section>
   );
 }
