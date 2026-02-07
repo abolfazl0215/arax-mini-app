@@ -12,6 +12,7 @@ import BottomNav from "@/components/BottomNav";
 import ContactModal from "@/components/ContactModal";
 import ServicesSection from "@/components/ServicesSection";
 import EducationBankSection from "@/components/EducationBankSection";
+import { usePageView } from "@/hooks/useAnalytics";
 
 // API Function برای check کردن کاربر
 const checkUser = async (userData) => {
@@ -36,6 +37,9 @@ export default function Home() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [tg, setTg] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
+
+  // Track page view
+  usePageView("home");
 
   // Mutation برای ارسال اطلاعات کاربر به سرور
   const checkUserMutation = useMutation({
