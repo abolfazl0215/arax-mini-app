@@ -52,7 +52,7 @@ export default function Hero() {
           className="inline-flex items-center gap-2 sm:gap-3 bg-slate-900/90 border border-violet-500/20 px-4 sm:px-6 py-2 sm:py-3 rounded-full mb-8 md:mb-10">
           <Sparkles className="w-4 h-4 text-violet-400" />
           <span className="text-xs sm:text-sm font-semibold text-violet-200">
-            شرکت آراکس - پیشرو در خدمات اقامت ارمنستان
+            شرکت آراد - پیشرو در خدمات اقامت ارمنستان
           </span>
           <div className="relative w-2 h-2 rounded-full bg-violet-400">
             <div className="absolute inset-0 rounded-full bg-violet-400 animate-ping opacity-75" />
@@ -74,7 +74,7 @@ export default function Hero() {
           </span>
 
           <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
-            شرکت آراکس
+            شرکت آراد
           </span>
         </motion.h1>
 
@@ -84,7 +84,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
           className="text-base sm:text-lg md:text-2xl text-slate-300 mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed font-light px-2">
-          سریع، آسان و مطمئن — با تیم حرفه‌ای آراکس، اقامت خود را با{" "}
+          سریع، آسان و مطمئن — با تیم حرفه‌ای آراد، اقامت خود را با{" "}
           <span className="text-violet-400 font-semibold">
             بهترین قیمت
           </span>{" "}

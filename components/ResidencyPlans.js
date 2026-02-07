@@ -16,7 +16,9 @@ import {
 import Link from "next/link";
 
 export default function ResidencyPlans() {
-  const setShowContactModal = useChatModalStore((s) => s.openContactModal);
+  const setShowContactModal = useChatModalStore(
+    (s) => s.openContactModal,
+  );
   const setSelectedPlan = useChatModalStore((s) => s.setSelectedPlan);
   const { plans, isLoadingPlans, plansError } = usePackages();
 
@@ -35,7 +37,9 @@ export default function ResidencyPlans() {
   };
 
   return (
-    <section id="plans" className="relative py-16 md:py-20 px-4 overflow-hidden">
+    <section
+      id="plans"
+      className="relative py-16 md:py-20 px-4 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-[#0B0B0F]" />
       <div className="absolute inset-0 bg-gradient-to-br from-violet-950/20 via-transparent to-fuchsia-950/20" />
@@ -46,7 +50,7 @@ export default function ResidencyPlans() {
           <div className="inline-flex items-center gap-2 bg-slate-900/80 border border-violet-500/20 px-4 py-2 rounded-full mb-6">
             <Sparkles className="w-4 h-4 text-violet-400" />
             <span className="text-sm text-violet-200 font-medium">
-              پکیج‌های آراکس
+              پکیج‌های آراد
             </span>
           </div>
 
@@ -58,7 +62,8 @@ export default function ResidencyPlans() {
           </h2>
 
           <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            نوع اقامت مورد نیاز خود را انتخاب کنید و تیم آراکس تمام مراحل را برای شما انجام می‌دهد
+            نوع اقامت مورد نیاز خود را انتخاب کنید و تیم آراد تمام
+            مراحل را برای شما انجام می‌دهد
           </p>
         </div>
 
@@ -66,7 +71,9 @@ export default function ResidencyPlans() {
         {isLoadingPlans && (
           <div className="flex flex-col items-center py-16">
             <Loader2 className="w-10 h-10 text-violet-400 animate-spin mb-3" />
-            <p className="text-slate-400">در حال بارگذاری پکیج‌ها...</p>
+            <p className="text-slate-400">
+              در حال بارگذاری پکیج‌ها...
+            </p>
           </div>
         )}
 
@@ -89,8 +96,7 @@ export default function ResidencyPlans() {
                     plan.popular
                       ? "border-violet-500/40"
                       : "border-slate-800 hover:border-slate-600"
-                  }`}
-                >
+                  }`}>
                   {plan.popular && (
                     <div className="absolute -top-3 right-3 text-xs bg-violet-600 text-white px-3 py-1 rounded-full flex items-center gap-1">
                       <Crown className="w-3 h-3" /> محبوب‌ترین
@@ -102,59 +108,68 @@ export default function ResidencyPlans() {
                     <Icon className="w-6 h-6 text-white" />
                   </div>
 
-                  <h3 className="text-lg font-bold text-white mb-1">{plan.title}</h3>
-                  <p className="text-xs text-slate-400 mb-4">{plan.duration}</p>
+                  <h3 className="text-lg font-bold text-white mb-1">
+                    {plan.title}
+                  </h3>
+                  <p className="text-xs text-slate-400 mb-4">
+                    {plan.duration}
+                  </p>
 
-                 {/* Price */}
-<div className="mb-5">
-  {plan.hasDiscount ? (
-    <div className="space-y-1.5">
-      {/* old price */}
-      <div className="text-sm text-slate-500 line-through">
-        ${plan.originalPrice?.toLocaleString()}
-      </div>
+                  {/* Price */}
+                  <div className="mb-5">
+                    {plan.hasDiscount ? (
+                      <div className="space-y-1.5">
+                        {/* old price */}
+                        <div className="text-sm text-slate-500 line-through">
+                          ${plan.originalPrice?.toLocaleString()}
+                        </div>
 
-      {/* new price */}
-      <div className="flex items-baseline gap-2">
-        <span className="text-3xl md:text-4xl font-black text-emerald-400">
-          ${plan.discountedPrice?.toLocaleString()}
-        </span>
-        {!plan.contactRequired && (
-          <span className="text-slate-400 text-xs">/ پکیج</span>
-        )}
-      </div>
+                        {/* new price */}
+                        <div className="flex items-baseline gap-2">
+                          <span className="text-3xl md:text-4xl font-black text-emerald-400">
+                            ${plan.discountedPrice?.toLocaleString()}
+                          </span>
+                          {!plan.contactRequired && (
+                            <span className="text-slate-400 text-xs">
+                              / پکیج
+                            </span>
+                          )}
+                        </div>
 
-      {/* discount badge */}
-      <div className="inline-flex items-center gap-1 text-xs text-emerald-400 font-medium">
-        <Tag className="w-3.5 h-3.5" />
-        {plan.discountPercentage}% تخفیف ویژه
-      </div>
+                        {/* discount badge */}
+                        <div className="inline-flex items-center gap-1 text-xs text-emerald-400 font-medium">
+                          <Tag className="w-3.5 h-3.5" />
+                          {plan.discountPercentage}% تخفیف ویژه
+                        </div>
 
-      {/* end date */}
-      {plan.campaignEndDate && (
-        <div className="flex items-center gap-1 text-[11px] text-slate-500">
-          <Clock className="w-3 h-3" />
-          تا {formatEndDate(plan.campaignEndDate)}
-        </div>
-      )}
-    </div>
-  ) : (
-    <div className="flex items-baseline gap-2">
-      <span className="text-3xl md:text-4xl font-black text-white">
-        {plan.price}
-      </span>
-      {!plan.contactRequired && (
-        <span className="text-slate-400 text-xs">/ پکیج</span>
-      )}
-    </div>
-  )}
-</div>
-
+                        {/* end date */}
+                        {plan.campaignEndDate && (
+                          <div className="flex items-center gap-1 text-[11px] text-slate-500">
+                            <Clock className="w-3 h-3" />
+                            تا {formatEndDate(plan.campaignEndDate)}
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-3xl md:text-4xl font-black text-white">
+                          {plan.price}
+                        </span>
+                        {!plan.contactRequired && (
+                          <span className="text-slate-400 text-xs">
+                            / پکیج
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
 
                   {/* Features */}
                   <ul className="space-y-2 mb-5 text-sm">
                     {plan.features.slice(0, 4).map((f, i) => (
-                      <li key={i} className="flex items-start gap-2 text-slate-300">
+                      <li
+                        key={i}
+                        className="flex items-start gap-2 text-slate-300">
                         <Check className="w-4 h-4 text-violet-400 mt-0.5" />
                         {f}
                       </li>
@@ -164,16 +179,15 @@ export default function ResidencyPlans() {
                   {/* CTA */}
                   <button
                     onClick={() => handlePlanClick(plan)}
-                    className="w-full py-3 rounded-xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-white font-semibold text-sm active:scale-95"
-                  >
+                    className="w-full py-3 rounded-xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-white font-semibold text-sm active:scale-95">
                     انتخاب پکیج
                   </button>
 
                   <Link
                     href={`/plans/${plan.id}`}
-                    className="block text-center text-xs text-slate-400 mt-3 hover:text-white"
-                  >
-                    اطلاعات بیشتر <ArrowLeft className="inline w-3 h-3" />
+                    className="block text-center text-xs text-slate-400 mt-3 hover:text-white">
+                    اطلاعات بیشتر{" "}
+                    <ArrowLeft className="inline w-3 h-3" />
                   </Link>
                 </div>
               );
