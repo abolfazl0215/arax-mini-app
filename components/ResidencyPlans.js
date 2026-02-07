@@ -50,7 +50,7 @@ export default function ResidencyPlans() {
           <div className="inline-flex items-center gap-2 bg-slate-900/80 border border-violet-500/20 px-4 py-2 rounded-full mb-6">
             <Sparkles className="w-4 h-4 text-violet-400" />
             <span className="text-sm text-violet-200 font-medium">
-              پکیج‌های آراد
+              پکیج‌های راد
             </span>
           </div>
 
@@ -62,7 +62,7 @@ export default function ResidencyPlans() {
           </h2>
 
           <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            نوع اقامت مورد نیاز خود را انتخاب کنید و تیم آراد تمام
+            نوع اقامت مورد نیاز خود را انتخاب کنید و تیم راد تمام
             مراحل را برای شما انجام می‌دهد
           </p>
         </div>
