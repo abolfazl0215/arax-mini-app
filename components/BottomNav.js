@@ -143,7 +143,7 @@ export default function BottomNav() {
       </nav>
 
       {/* Safe Area Spacer */}
-      <div className="h-20 md:hidden" />
+      {/* <div className="h-20 md:hidden" /> */}
 
       <style jsx>{`
         /* Active Indicator Animation */
