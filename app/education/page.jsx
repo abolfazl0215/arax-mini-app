@@ -2,13 +2,11 @@
 
 import { useChatModalStore } from "@/store/chatModalStore";
 import {
-  ArrowRight,
   FileText,
   Clock,
   DollarSign,
   CheckCircle2,
   AlertCircle,
-  BookOpen,
   Scale,
   Users,
   Home,
@@ -18,9 +16,11 @@ import {
   Shield,
   Download,
   ExternalLink,
+  Sparkles,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 export default function EducationPage() {
   const router = useRouter();
@@ -40,7 +40,6 @@ export default function EducationPage() {
     tg.BackButton.show();
 
     const handleBack = () => {
-      // اول مودال‌ها رو ببند
       if (isOpenChatModal) {
         useChatModalStore.getState().closeChat();
         return;
@@ -51,14 +50,13 @@ export default function EducationPage() {
         return;
       }
 
-      // اگر مودالی باز نیست → برگرد صفحه قبل
       router.push("/");
     };
 
     tg.BackButton.onClick(handleBack);
 
     return () => {
-      tg.BackButton.offClick(handleBack); // ✅ مهم‌ترین بخش
+      tg.BackButton.offClick(handleBack);
       tg.BackButton.hide();
     };
   }, [router, isOpenChatModal, isOpenContactModal]);
@@ -125,7 +123,7 @@ export default function EducationPage() {
         "بیمه درمانی",
         "اثبات توانایی مالی",
       ],
-      color: "from-indigo-600 to-purple-600",
+      color: "from-violet-600 to-purple-600",
     },
     {
       icon: GraduationCap,
@@ -151,7 +149,7 @@ export default function EducationPage() {
         "حمایت مالی از خانواده",
         "محل سکونت مشترک",
       ],
-      color: "from-pink-600 to-rose-600",
+      color: "from-pink-600 to-fuchsia-600",
     },
     {
       icon: Home,
@@ -276,94 +274,104 @@ export default function EducationPage() {
       case "documents":
         return (
           <div className="space-y-4">
-            <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-5 mb-6">
-              <div className="flex items-start gap-3">
-                <AlertCircle className="w-6 h-6 text-blue-400 flex-shrink-0 mt-1" />
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-5 sm:p-6 mb-6">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <AlertCircle className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400 flex-shrink-0 mt-1" />
                 <div>
-                  <h4 className="text-white font-bold mb-2">
+                  <h4 className="text-white font-bold text-base sm:text-lg mb-2">
                     نکته مهم
                   </h4>
-                  <p className="text-blue-200 text-sm leading-relaxed">
+                  <p className="text-blue-200 text-sm sm:text-base leading-relaxed">
                     تمام مدارک باید به زبان ارمنی یا روسی ترجمه و توسط
                     دفتر ترجمه رسمی یا سفارت تایید شوند.
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {documents.map((doc, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="bg-slate-800/30 border border-slate-700/30 rounded-xl p-5 hover:border-slate-600/50 transition-all duration-300">
-                <div className="flex items-start gap-4">
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05 }}
+                className="bg-slate-800/30 border border-slate-700/30 rounded-2xl p-5 sm:p-6 hover:border-slate-600/50 transition-all duration-300">
+                <div className="flex items-start gap-3 sm:gap-4">
                   {doc.required ? (
-                    <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-1" />
+                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400 flex-shrink-0 mt-1" />
                   ) : (
-                    <AlertCircle className="w-6 h-6 text-amber-400 flex-shrink-0 mt-1" />
+                    <AlertCircle className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400 flex-shrink-0 mt-1" />
                   )}
                   <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h4 className="text-white font-bold">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
+                      <h4 className="text-white font-bold text-base sm:text-lg">
                         {doc.title}
                       </h4>
                       {doc.required && (
-                        <span className="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded-full border border-emerald-500/20">
+                        <span className="text-xs bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded-full border border-emerald-500/20 font-semibold">
                           الزامی
                         </span>
                       )}
                     </div>
-                    <p className="text-slate-400 text-sm leading-relaxed">
+                    <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
                       {doc.description}
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         );
 
       case "types":
         return (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {residencyTypes.map((type, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="bg-slate-800/30 border border-slate-700/30 rounded-xl p-6 hover:border-slate-600/50 transition-all duration-300">
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -4 }}
+                className="bg-slate-800/30 border border-slate-700/30 rounded-2xl p-5 sm:p-6 hover:border-slate-600/50 transition-all duration-300">
                 <div
-                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${type.color} p-3 mb-4`}>
+                  className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br ${type.color} p-2.5 sm:p-3 mb-4`}>
                   <type.icon className="w-full h-full text-white" />
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-3">
+                <h3 className="text-lg sm:text-xl font-black text-white mb-3">
                   {type.title}
                 </h3>
 
-                <div className="flex items-center gap-4 mb-4">
+                <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-4">
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-slate-400" />
-                    <span className="text-sm text-slate-400">
+                    <span className="text-xs sm:text-sm text-slate-400 font-medium">
                       {type.duration}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <DollarSign className="w-4 h-4 text-slate-400" />
-                    <span className="text-sm text-slate-400">
+                    <span className="text-xs sm:text-sm text-slate-400 font-medium">
                       {type.price}
                     </span>
                   </div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   {type.requirements.map((req, idx) => (
                     <div key={idx} className="flex items-start gap-2">
                       <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-slate-300">
+                      <span className="text-sm sm:text-base text-slate-300">
                         {req}
                       </span>
                     </div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         );
@@ -371,44 +379,50 @@ export default function EducationPage() {
       case "process":
         return (
           <div className="space-y-4">
-            <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-5 mb-6">
-              <div className="flex items-start gap-3">
-                <Clock className="w-6 h-6 text-amber-400 flex-shrink-0 mt-1" />
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-5 sm:p-6 mb-6">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400 flex-shrink-0 mt-1" />
                 <div>
-                  <h4 className="text-white font-bold mb-2">
+                  <h4 className="text-white font-bold text-base sm:text-lg mb-2">
                     مدت زمان کل فرآیند
                   </h4>
-                  <p className="text-amber-200 text-sm leading-relaxed">
+                  <p className="text-amber-200 text-sm sm:text-base leading-relaxed">
                     به طور متوسط 2-4 ماه زمان می‌برد. این مدت بسته به
                     نوع اقامت و تکمیل بودن مدارک متفاوت است.
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {processSteps.map((step, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="relative bg-slate-800/30 border border-slate-700/30 rounded-xl p-6 hover:border-slate-600/50 transition-all duration-300">
-                <div className="flex items-start gap-5">
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.05 }}
+                className="relative bg-slate-800/30 border border-slate-700/30 rounded-2xl p-5 sm:p-6 hover:border-slate-600/50 transition-all duration-300">
+                <div className="flex items-start gap-4 sm:gap-5">
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center">
-                      <span className="text-white font-bold text-lg">
+                    <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-violet-600 to-purple-600 flex items-center justify-center shadow-lg shadow-violet-500/30">
+                      <span className="text-white font-black text-base sm:text-lg">
                         {step.step}
                       </span>
                     </div>
                   </div>
 
                   <div className="flex-1">
-                    <h4 className="text-lg font-bold text-white mb-2">
+                    <h4 className="text-base sm:text-lg font-bold text-white mb-2">
                       {step.title}
                     </h4>
-                    <p className="text-slate-300 text-sm leading-relaxed mb-3">
+                    <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-3">
                       {step.description}
                     </p>
                     <div className="inline-flex items-center gap-2 bg-slate-700/30 px-3 py-1.5 rounded-full">
-                      <Clock className="w-4 h-4 text-indigo-400" />
-                      <span className="text-sm text-indigo-300">
+                      <Clock className="w-4 h-4 text-violet-400" />
+                      <span className="text-xs sm:text-sm text-violet-300 font-medium">
                         {step.duration}
                       </span>
                     </div>
@@ -416,9 +430,9 @@ export default function EducationPage() {
                 </div>
 
                 {index < processSteps.length - 1 && (
-                  <div className="absolute right-[1.375rem] top-[4.5rem] bottom-[-1rem] w-0.5 bg-gradient-to-b from-indigo-600/50 to-transparent" />
+                  <div className="absolute right-[1.375rem] sm:right-[1.5rem] top-[4.5rem] sm:top-[5rem] bottom-[-1rem] w-0.5 bg-gradient-to-b from-violet-600/50 to-transparent" />
                 )}
-              </div>
+              </motion.div>
             ))}
           </div>
         );
@@ -427,40 +441,43 @@ export default function EducationPage() {
         return (
           <div className="space-y-4">
             {importantLaws.map((law, index) => (
-              <div
+              <motion.div
                 key={index}
-                className={`bg-slate-800/30 border rounded-xl p-5 hover:border-slate-600/50 transition-all duration-300 ${
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05 }}
+                className={`bg-slate-800/30 border rounded-2xl p-5 sm:p-6 hover:border-slate-600/50 transition-all duration-300 ${
                   law.importance === "high"
                     ? "border-rose-500/30"
                     : "border-slate-700/30"
                 }`}>
-                <div className="flex items-start gap-4">
+                <div className="flex items-start gap-3 sm:gap-4">
                   <div
-                    className={`w-12 h-12 rounded-xl p-2.5 flex-shrink-0 ${
+                    className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl p-2.5 flex-shrink-0 ${
                       law.importance === "high"
                         ? "bg-gradient-to-br from-rose-600 to-pink-600"
-                        : "bg-gradient-to-br from-indigo-600 to-purple-600"
+                        : "bg-gradient-to-br from-violet-600 to-purple-600"
                     }`}>
                     <law.icon className="w-full h-full text-white" />
                   </div>
 
                   <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h4 className="text-white font-bold">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
+                      <h4 className="text-white font-bold text-base sm:text-lg">
                         {law.title}
                       </h4>
                       {law.importance === "high" && (
-                        <span className="text-xs bg-rose-500/10 text-rose-400 px-2 py-1 rounded-full border border-rose-500/20">
+                        <span className="text-xs bg-rose-500/10 text-rose-400 px-2.5 py-1 rounded-full border border-rose-500/20 font-semibold">
                           بسیار مهم
                         </span>
                       )}
                     </div>
-                    <p className="text-slate-300 text-sm leading-relaxed">
+                    <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
                       {law.content}
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         );
@@ -468,90 +485,118 @@ export default function EducationPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      {/* Header */}
-      {/* <div className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-xl border-b border-slate-700/50">
-        <div className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <button
-              onClick={() => router.back()}
-              className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors">
-              <ArrowRight className="w-5 h-5" />
-              <span className="font-medium">بازگشت</span>
-            </button>
+    <div className="min-h-screen bg-[#0B0B0F]">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-950/20 via-transparent to-fuchsia-950/20 pointer-events-none" />
 
-            <div className="flex items-center gap-2">
-              <BookOpen className="w-6 h-6 text-indigo-400" />
-              <h1 className="text-xl font-bold text-white">
-                بانک آموزش و قوانین
-              </h1>
-            </div>
-          </div>
-        </div>
-      </div> */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          className="absolute top-0 right-1/4 w-[400px] h-[400px] md:w-[500px] md:h-[500px] rounded-full opacity-20"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)",
+            animation: "fadeInOut 8s ease-in-out infinite",
+          }}
+        />
+        <div
+          className="absolute bottom-0 left-1/4 w-[450px] h-[450px] md:w-[600px] md:h-[600px] rounded-full opacity-15"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%)",
+            animation: "fadeInOut 10s ease-in-out infinite 2s",
+          }}
+        />
+      </div>
 
       {/* Content */}
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 py-8 sm:py-12">
         {/* Hero Banner */}
-        <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-2xl p-8 mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-            راهنمای جامع اقامت در ارمنستان
-          </h2>
-          <p className="text-white/90 text-lg leading-relaxed">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 rounded-2xl p-6 sm:p-8 md:p-10 mb-8 shadow-2xl shadow-violet-500/20">
+          <div className="flex items-start gap-3 mb-4">
+            <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 text-white flex-shrink-0" />
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white leading-tight">
+              راهنمای جامع اقامت در ارمنستان
+            </h2>
+          </div>
+          <p className="text-white/90 text-base sm:text-lg md:text-xl leading-relaxed font-light">
             همه چیزی که برای دریافت اقامت در ارمنستان نیاز دارید
           </p>
-        </div>
+        </motion.div>
 
         {/* Tabs */}
-        <div className="bg-slate-900/50 border border-slate-700/50 rounded-xl p-2 mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="bg-slate-900/50 border border-slate-700/50 rounded-2xl p-2 mb-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
+                className={`flex items-center justify-center gap-2 px-3 sm:px-4 py-3 sm:py-3.5 rounded-xl font-semibold transition-all duration-300 ${
                   activeTab === tab.id
-                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                    ? "bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-lg shadow-violet-500/30"
                     : "text-slate-400 hover:text-white hover:bg-slate-800/50"
                 }`}>
-                <tab.icon className="w-5 h-5" />
-                <span className="hidden sm:inline">{tab.label}</span>
+                <tab.icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="hidden sm:inline text-sm sm:text-base">
+                  {tab.label}
+                </span>
               </button>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Tab Content */}
-        <div className="bg-slate-900/50 border border-slate-700/50 rounded-2xl p-6 md:p-8">
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="bg-slate-900/50 border border-slate-700/50 rounded-2xl p-5 sm:p-6 md:p-8 mb-8">
           {renderContent()}
-        </div>
+        </motion.div>
 
         {/* Download Section */}
-        <div className="mt-8 bg-slate-900/50 border border-slate-700/50 rounded-2xl p-8">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="bg-slate-900/50 border border-slate-700/50 rounded-2xl p-6 sm:p-8 mb-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-start gap-4">
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-600 p-3 flex-shrink-0">
+            <div className="flex items-start gap-4 flex-1">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-600 p-3 flex-shrink-0 shadow-lg shadow-emerald-500/30">
                 <Download className="w-full h-full text-white" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-white mb-2">
+                <h3 className="text-lg sm:text-xl font-black text-white mb-2">
                   دانلود راهنمای PDF
                 </h3>
-                <p className="text-slate-300 text-sm leading-relaxed">
+                <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
                   راهنمای کامل اقامت را به صورت PDF دانلود کنید
                 </p>
               </div>
             </div>
-            <button className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-full font-semibold text-white transition-transform hover:scale-105 active:scale-95 whitespace-nowrap">
+            <motion.button
+              whileTap={{ scale: 0.97 }}
+              className="w-full md:w-auto inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl font-bold text-base sm:text-lg text-white shadow-lg shadow-emerald-500/30 transition-all hover:scale-105 active:scale-95">
               <Download className="w-5 h-5" />
               <span>دانلود راهنما</span>
-            </button>
+            </motion.button>
           </div>
-        </div>
+        </motion.div>
 
         {/* External Resources */}
-        <div className="mt-8 bg-slate-900/50 border border-slate-700/50 rounded-2xl p-8">
-          <h3 className="text-2xl font-bold text-white mb-6">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="bg-slate-900/50 border border-slate-700/50 rounded-2xl p-6 sm:p-8">
+          <h3 className="text-xl sm:text-2xl font-black text-white mb-6">
             منابع مفید
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -567,21 +612,35 @@ export default function EducationPage() {
                 url: "tehran.mfa.am",
               },
             ].map((resource, index) => (
-              <a
+              <motion.a
                 key={index}
                 href={`https://${resource.url}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between bg-slate-800/30 border border-slate-700/30 rounded-xl p-4 hover:border-indigo-500/50 transition-all duration-300 group">
-                <span className="text-white font-medium group-hover:text-indigo-300 transition-colors">
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="flex items-center justify-between bg-slate-800/30 border border-slate-700/30 rounded-2xl p-4 sm:p-5 hover:border-violet-500/50 transition-all duration-300 group">
+                <span className="text-white font-semibold text-sm sm:text-base group-hover:text-violet-300 transition-colors">
                   {resource.title}
                 </span>
-                <ExternalLink className="w-5 h-5 text-slate-400 group-hover:text-indigo-400 transition-colors" />
-              </a>
+                <ExternalLink className="w-5 h-5 text-slate-400 group-hover:text-violet-400 transition-colors flex-shrink-0" />
+              </motion.a>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
+
+      <style jsx>{`
+        @keyframes fadeInOut {
+          0%,
+          100% {
+            opacity: 0.15;
+          }
+          50% {
+            opacity: 0.25;
+          }
+        }
+      `}</style>
     </div>
   );
 }

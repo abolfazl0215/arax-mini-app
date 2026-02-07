@@ -35,6 +35,7 @@ export default function PlanDetailPage() {
   );
 
   const { plans, isLoadingPlans } = usePackages();
+  console.log({ plans });
 
   useEffect(() => {
     if (typeof window === "undefined" || !window.Telegram?.WebApp)
