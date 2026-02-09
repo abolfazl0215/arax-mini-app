@@ -147,7 +147,7 @@ export default function EducationBankSection() {
         </div>
 
         {/* Bottom Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
             { label: "مقالات آموزشی", value: "50+" },
             { label: "ویدیوهای راهنما", value: "25+" },
@@ -165,7 +165,7 @@ export default function EducationBankSection() {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </section>
   );

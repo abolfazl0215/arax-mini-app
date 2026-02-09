@@ -562,7 +562,7 @@ export default function EducationPage() {
         </motion.div>
 
         {/* Download Section */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -588,7 +588,7 @@ export default function EducationPage() {
               <span>دانلود راهنما</span>
             </motion.button>
           </div>
-        </motion.div>
+        </motion.div> */}
 
         {/* External Resources */}
         <motion.div
