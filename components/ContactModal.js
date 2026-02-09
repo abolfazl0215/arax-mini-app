@@ -114,25 +114,25 @@ const ContactModal = memo(() => {
             <div className="space-y-4">
               {[
                 {
-                  href: "tel:+374123456789",
+                  href: "tel:+37493655375",
                   icon: Phone,
                   gradient: "from-emerald-600 to-teal-600",
                   label: "تماس تلفنی",
-                  value: "+374 12 345 6789",
+                  value: "+374 93 655 375",
                 },
                 {
-                  href: "mailto:info@araxgroup.com",
+                  href: "mailto:info@radgroup.com",
                   icon: Mail,
                   gradient: "from-cyan-600 to-blue-600",
                   label: "ایمیل",
-                  value: "info@araxgroup.com",
+                  value: "info@radgroup.com",
                 },
                 {
-                  href: "https://t.me/your_support_username",
+                  href: "https://t.me/OFFICE_RAD",
                   icon: Send,
                   gradient: "from-indigo-600 to-purple-600",
                   label: "تلگرام",
-                  value: "@your_support_username",
+                  value: "@OFFICE_RAD",
                   external: true,
                 },
               ].map((item, index) => (
@@ -171,7 +171,7 @@ const ContactModal = memo(() => {
                     دفتر ما
                   </p>
                   <p className="text-sm text-slate-300 leading-relaxed">
-                    ایروان، ارمنستان - خیابان تومانیان، پلاک ۱۵
+                    Nikoghayos Tigranyan Street 1st Desdlock, 10
                   </p>
                 </div>
               </div>

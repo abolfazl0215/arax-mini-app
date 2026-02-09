@@ -172,13 +172,13 @@ const handleSend = async () => {
 
 ```js
 // تلفن
-<a href="tel:+374123456789">+374 12 345 6789</a>
+<a href="tel:+374123456789">+374 93 655 375</a>
 
 // ایمیل
 <a href="mailto:info@armenia-residency.com">
 
 // تلگرام
-<a href="https://t.me/your_support_username">
+<a href="https://t.me/OFFICE_RAD">
 ```
 
 ## 🛠️ تکنولوژی‌ها
@@ -197,7 +197,7 @@ This project is private and proprietary.
 
 برای سوالات و پشتیبانی:
 
-- تلگرام: [@your_support_username](https://t.me/your_support_username)
+- تلگرام: [@OFFICE_RAD](https://t.me/OFFICE_RAD)
 - ایمیل: info@armenia-residency.com
 
 ---

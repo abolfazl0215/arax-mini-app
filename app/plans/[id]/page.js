@@ -86,7 +86,7 @@ export default function PlanDetailPage() {
 
   const handleDirectTelegram = () => {
     setSelectedPlan(plan);
-    const telegramUsername = "araks_support";
+    const telegramUsername = "OFFICE_RAD";
     const message = encodeURIComponent(
       `سلام، من در مورد پکیج "${plan.title}" سوال دارم.`,
     );

@@ -324,7 +324,7 @@ export default function ChatModal() {
   const onClose = useChatModalStore((s) => s.closeChat);
 
   // Admin Telegram Username
-  const ADMIN_USERNAME = "araks_support";
+  const ADMIN_USERNAME = "OFFICE_RAD";
 
   // Detect Keyboard Open/Close
   useEffect(() => {

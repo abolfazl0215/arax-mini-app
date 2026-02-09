@@ -11,8 +11,8 @@ import {
 
 export default function ContactSection({ tg }) {
   const openTelegram = () => {
-    if (tg) tg.openTelegramLink("https://t.me/araks_support");
-    else window.open("https://t.me/araks_support", "_blank");
+    if (tg) tg.openTelegramLink("https://t.me/OFFICE_RAD");
+    else window.open("https://t.me/OFFICE_RAD", "_blank");
   };
 
   const contactItems = [
@@ -20,7 +20,7 @@ export default function ContactSection({ tg }) {
       icon: Send,
       title: "پشتیبانی تلگرام",
       subtitle: "سریع‌ترین راه ارتباط",
-      value: "@araks_support",
+      value: "@OFFICE_RAD",
       gradient: "from-cyan-500 via-blue-500 to-indigo-500",
       onClick: openTelegram,
       primary: true,
@@ -29,7 +29,7 @@ export default function ContactSection({ tg }) {
       icon: Phone,
       title: "تماس تلفنی",
       subtitle: "پاسخگویی 24/7",
-      value: "+374 12 345 6789",
+      value: "+374 93 655 375",
       href: "tel:+374123456789",
       gradient: "from-indigo-500 via-purple-500 to-pink-500",
     },
@@ -37,8 +37,8 @@ export default function ContactSection({ tg }) {
       icon: Mail,
       title: "ایمیل",
       subtitle: "پاسخ طی 24 ساعت",
-      value: "info@araksgroup.com",
-      href: "mailto:info@araksgroup.com",
+      value: "info@radgroup.com",
+      href: "mailto:info@radgroup.com",
       gradient: "from-purple-500 via-pink-500 to-indigo-500",
     },
     {
