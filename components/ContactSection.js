@@ -45,7 +45,7 @@ export default function ContactSection({ tg }) {
       icon: MapPin,
       title: "آدرس دفتر",
       subtitle: "ایروان، ارمنستان",
-      value: "Fuchik 32/2",
+      value: "  Nikoghayos Tigranyan Street 1st Desdlock, 10",
       gradient: "from-emerald-500 via-teal-500 to-cyan-500",
     },
     {
@@ -147,7 +147,7 @@ export default function ContactSection({ tg }) {
             </p>
 
             <a
-              href="https://maps.app.goo.gl/hDxGprhN8Anprq1y6"
+              href="https://maps.app.goo.gl/Ev14kYJvcuyVGBH76"
               target="_blank"
               className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-full font-semibold text-white hover:scale-105 active:scale-95 transition">
               مشاهده موقعیت روی نقشه
