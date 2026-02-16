@@ -2,10 +2,10 @@
 
 import {
   FileCheck,
-  CreditCard,
+  Users,
   Building,
   Gift,
-  Shield,
+  HeadphonesIcon,
   Clock,
   Sparkles,
 } from "lucide-react";
@@ -18,9 +18,9 @@ const features = [
     gradient: "from-indigo-500 via-purple-500 to-pink-500",
   },
   {
-    icon: CreditCard,
-    title: "پرداخت بعد از اقامت",
-    description: "بدون پیش‌پرداخت — فقط بعد از دریافت اقامت",
+    icon: Users,
+    title: "تیم متخصص و مجرب",
+    description: "همراهی کادر حرفه‌ای در تمام مراحل اخذ اقامت",
     gradient: "from-purple-500 via-pink-500 to-indigo-500",
   },
   {
@@ -36,9 +36,9 @@ const features = [
     gradient: "from-pink-500 via-purple-500 to-indigo-500",
   },
   {
-    icon: Shield,
-    title: "تضمین 100٪",
-    description: "دریافت اقامت یا بازگشت کامل هزینه",
+    icon: HeadphonesIcon,
+    title: "پشتیبانی مستمر",
+    description: "پاسخگویی به سوالات و مشاوره رایگان 24/7",
     gradient: "from-emerald-500 via-teal-500 to-cyan-500",
   },
   {
