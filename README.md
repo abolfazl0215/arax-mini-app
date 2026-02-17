@@ -44,7 +44,7 @@ npm install
 npm run dev
 
 # 3. باز کردن در مرورگر
-# https://arax-mini-app-back.onrender.com
+# https://arax-mini-app-back-enzr.onrender.com
 ```
 
 ### Build برای Production
