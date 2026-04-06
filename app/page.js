@@ -17,7 +17,7 @@ import { usePageView } from "@/hooks/useAnalytics";
 // API Function برای check کردن کاربر
 const checkUser = async (userData) => {
   const response = await fetch(
-    "https://arax-mini-app-back-enzr.onrender.com/api/checkUser",
+    "https://rad-mini-app-back.onrender.com/api/checkUser",
     {
       method: "POST",
       headers: {

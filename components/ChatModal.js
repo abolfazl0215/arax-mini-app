@@ -28,7 +28,7 @@ import { ClipLoader } from "react-spinners";
 const fetchMessages = async (telegramId) => {
   try {
     const response = await fetch(
-      `https://arax-mini-app-back-enzr.onrender.com/api/messages?telegramId=${telegramId}`,
+      `https://rad-mini-app-back.onrender.com/api/messages?telegramId=${telegramId}`,
     );
 
     if (!response.ok) {
@@ -61,7 +61,7 @@ const fetchMessages = async (telegramId) => {
 const sendMessage = async ({ telegramId, text }) => {
   try {
     const response = await fetch(
-      "https://arax-mini-app-back-enzr.onrender.com/api/messages",
+      "https://rad-mini-app-back.onrender.com/api/messages",
       {
         method: "POST",
         headers: {

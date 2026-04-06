@@ -3,7 +3,7 @@ import axios from "axios";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://arax-mini-app-back-enzr.onrender.com";
+  "https://rad-mini-app-back.onrender.com";
 
 // Create axios instance
 const api = axios.create({

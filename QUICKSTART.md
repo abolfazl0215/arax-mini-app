@@ -21,7 +21,7 @@ npm install
 npm run dev
 ```
 
-✅ باز کردن https://arax-mini-app-back-enzr.onrender.com
+✅ باز کردن https://rad-mini-app-back.onrender.com
 
 ---
 
